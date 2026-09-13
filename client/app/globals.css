@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Anybody:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  /* Official palette: https://brandcenter.ufl.edu/colors/ */
+  --uf-blue: #0021a5;
+  --uf-orange: #fa4616;
+  --uf-white: #ffffff;
+  --background: #ffffff;
+  --foreground: #171717;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-uf-blue: var(--uf-blue);
+  --color-uf-orange: var(--uf-orange);
+  --color-uf-white: var(--uf-white);
+  --font-sans: "IBM Plex Sans", Arial, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-display: "Anybody", "IBM Plex Sans", sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
