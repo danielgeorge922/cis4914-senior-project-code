@@ -1,0 +1,36 @@
+.mango {
+  width: 190px;
+  height: 190px;
+  margin: 32px auto;
+}
+.body {
+  animation: bounce 0.3s ease-in-out infinite alternate;
+}
+.legOne {
+  transform-origin: 76px 123px;
+  animation: stride 0.3s ease-in-out infinite alternate;
+}
+.legTwo {
+  transform-origin: 101px 122px;
+  animation: stride 0.3s ease-in-out infinite alternate-reverse;
+}
+@keyframes bounce {
+  to {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+@keyframes stride {
+  from {
+    transform: rotate(-20deg);
+  }
+  to {
+    transform: rotate(25deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .body,
+  .legOne,
+  .legTwo {
+    animation: none;
+  }
+}

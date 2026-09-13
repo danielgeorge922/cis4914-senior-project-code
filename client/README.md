@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mango Identification
 
-## Getting Started
+Next.js App Router frontend for Professor Jha's mango identification project. The current experience is a local prototype; no model or backend is connected.
 
-First, run the development server:
+## Development
 
-```bash
+From this directory:
+
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Checks: `npm run lint` and `npx tsc --noEmit`.
+Production: `npm run build`, then `npm start`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Routes
 
-## Learn More
+- `/`: fruit/leaf uploads, image previews, and optional plant features.
+- `/processing`: animated mango and simulated progress, followed by automatic navigation.
+- `/predictions-result`: a primary prediction and nine alternatives from mock data.
 
-To learn more about Next.js, take a look at the following resources:
+## Code organization
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/`: routes, shared layout, global styles, and processing animation styles.
+- `components/`: upload form, upload cards, optional features, prediction cards, score ring, and UF header/footer.
+- `lib/types.ts`: shared photo and prediction types.
+- `lib/const.ts`: mock prediction response and simulated processing duration.
+- `public/`: static assets, including the placeholder mango illustration.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The upload form owns photo state and accepts one fruit image and one leaf image through file pickers. Selecting another image replaces that category's preview. Optional plant details use five fixed fields. Features and uploaded photos are not sent to an API. Image object URLs are local to the upload form; submissions are not persisted across reloads. Results use the same illustrative fixture regardless of the uploaded images.
 
-## Deploy on Vercel
+## Styling
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tailwind CSS v4 with UF aliases defined in `app/globals.css`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `bg-uf-blue`, `text-uf-blue`: #0021A5.
+- `bg-uf-orange`, `border-uf-orange`: #FA4616.
+- `text-uf-white`: #FFFFFF.
+- `font-sans`: IBM Plex Sans (default).
+- `font-serif`: Source Serif 4.
+- `font-display`: Anybody.
+
+Fonts load through Google Fonts. The header currently uses text identification rather than an approved UF logo asset.
+
+## Prototype limitations
+
+Predictions, scores, descriptions, and cultivar imagery are placeholders. Processing is a timer, not inference. The server and model directories outside this client are reserved for future implementation.

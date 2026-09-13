@@ -16,7 +16,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="min-w-0 flex-1">{children}</div>
         <UFFooter />
       </body>
-
     </html>
   );
 }
