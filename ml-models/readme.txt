@@ -1,1 +1,1 @@
-this is where we are gonna build out each of our architectures for each model
+Mango architecture and dataset experiments; see README.md for the folder layout and comparison workflow.

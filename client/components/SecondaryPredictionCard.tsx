@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Prediction } from "../lib/types";
 import PredictionScore from "./PredictionScore";
 
@@ -18,6 +19,18 @@ export default function SecondaryPredictionCard({
           </h3>
         </div>
         <PredictionScore score={prediction.matchScore} />
+      </div>
+      <div className="mt-4 flex items-center gap-3">
+        <Image
+          src={prediction.image}
+          alt={prediction.imageAlt}
+          width={64}
+          height={64}
+          className="rounded-lg bg-white"
+        />
+        <p className="text-sm leading-relaxed text-gray-600">
+          {prediction.description}
+        </p>
       </div>
       <details className="mt-5 border-t border-gray-200 pt-4">
         <summary className="cursor-pointer text-sm font-medium text-uf-blue">

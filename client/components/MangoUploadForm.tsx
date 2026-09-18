@@ -36,7 +36,7 @@ export default function MangoUploadForm() {
     setPending((count) => count + 1);
     const accepted: Photo[] = [];
     const errors: string[] = [];
-    for (const file of files.slice(0, 1)) {
+    for (const file of files) {
       if (
         !["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
         file.size > 10 * 1024 * 1024
@@ -58,12 +58,7 @@ export default function MangoUploadForm() {
         errors.push(`${file.name} could not be opened. Try another image.`);
       }
     }
-    if (accepted.length) {
-      setPhotos((previous) => [
-        ...previous.filter((photo) => photo.kind !== kind),
-        ...accepted,
-      ]);
-    }
+    setPhotos((previous) => [...previous, ...accepted]);
     setError(errors.join(" "));
     setPending((count) => count - 1);
   }

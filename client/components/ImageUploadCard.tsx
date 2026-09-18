@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRef, useState } from "react";
 import type { Photo } from "../lib/types";
 
 type Props = {
@@ -20,6 +21,8 @@ export default function ImageUploadCard({
   onAdd,
   onRemove,
 }: Props) {
+  const [dragging, setDragging] = useState(false);
+  const depth = useRef(0);
   return (
     <section
       aria-labelledby={category.kind + "-heading"}
@@ -34,9 +37,34 @@ export default function ImageUploadCard({
       <p className="mt-2 min-h-12 text-sm leading-6 text-gray-600">
         {category.description}
       </p>
-      <label className="relative mt-5 flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-xl bg-gray-50 px-4 py-7 text-center transition-colors hover:bg-gray-100 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-uf-blue">
+      <label
+        className={`relative mt-5 flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-xl px-4 py-7 text-center transition-colors focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-uf-blue ${dragging ? "bg-blue-100 ring-2 ring-uf-blue" : "bg-gray-50 hover:bg-gray-100"}`}
+        onDragEnter={(event) => {
+          event.preventDefault();
+          if (event.dataTransfer.types.includes("Files")) {
+            depth.current++;
+            setDragging(true);
+          }
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          event.dataTransfer.dropEffect = "copy";
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          depth.current = Math.max(0, depth.current - 1);
+          if (!depth.current) setDragging(false);
+        }}
+        onDrop={(event) => {
+          event.preventDefault();
+          depth.current = 0;
+          setDragging(false);
+          void onAdd(Array.from(event.dataTransfer.files), category.kind);
+        }}
+      >
         <input
           type="file"
+          multiple
           accept="image/jpeg,image/png,image/webp"
           className="sr-only"
           aria-label={`Upload ${category.title.toLowerCase()} photos`}
@@ -57,10 +85,10 @@ export default function ImageUploadCard({
           <path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5" />
         </svg>
         <span className="font-semibold text-uf-blue">
-          Choose image
+          {dragging ? "Drop images to add them" : "Choose images"}
         </span>
         <span className="mt-1 text-sm text-gray-600">
-          One image per category
+          {dragging ? "Release to upload your photos" : "or drag and drop here"}
         </span>
         <span className="mt-3 text-xs text-gray-500">
           JPG, PNG, WebP · up to 10 MB each

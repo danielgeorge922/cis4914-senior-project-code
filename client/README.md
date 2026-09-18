@@ -30,7 +30,7 @@ Production: `npm run build`, then `npm start`.
 - `lib/const.ts`: mock prediction response and simulated processing duration.
 - `public/`: static assets, including the placeholder mango illustration.
 
-The upload form owns photo state and accepts one fruit image and one leaf image through file pickers. Selecting another image replaces that category's preview. Optional plant details use five fixed fields. Features and uploaded photos are not sent to an API. Image object URLs are local to the upload form; submissions are not persisted across reloads. Results use the same illustrative fixture regardless of the uploaded images.
+The upload form owns photo state; the optional feature section owns its own rows. Features and uploaded photos are not sent to an API. Image object URLs are local to the upload form; submissions are not persisted across reloads. Results use the same illustrative fixture regardless of the uploaded images.
 
 ## Styling
 
