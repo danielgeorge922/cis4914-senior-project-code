@@ -1,0 +1,27 @@
+[project]
+name = "ml-models"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib>=3.9.4",
+    "pandas>=2.3.3",
+    "pillow>=11.3.0",
+    "pillow-heif>=1.1.1",
+    "torch>=2.8.0",
+    "torchvision>=0.23.0",
+]
+
+[project.scripts]
+ml-models = "ml_models:main"
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1",
+    "pytest>=8.4.2",
+]
