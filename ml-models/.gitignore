@@ -14,6 +14,12 @@ __pycache__/
 !/data/raw/readme.txt
 /data/processed/*
 !/data/processed/readme.txt
+/data/transformed/*
+!/data/transformed/readme.txt
+/data/manifests/**/*.lock
+/data/manifests/**/errors.jsonl
+/data/manifests/**/*.tail.bak
+/data/manifests/**/*.csv.tmp
 /runs/*
 !/runs/readme.txt
 /exports/*

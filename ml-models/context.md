@@ -39,11 +39,10 @@ Notebook dependencies:
 uv add --dev jupyter pandas matplotlib pillow pillow-heif
 ```
 
-Optional OCR assistance:
+Install the committed Python 3.12 environment:
 
 ```bash
-uv add --dev pytesseract
-brew install tesseract
+uv sync --locked
 ```
 
 Run project commands through the uv environment:
@@ -54,13 +53,57 @@ uv run <command>
 
 Do not install project dependencies globally and do not commit virtual environments, API keys, rclone tokens, or local caches.
 
+## Hugging Face download
+
+From `ml-models/`, run:
+
+```bash
+uv sync --locked
+uv run python scripts/download_hugging_face.py
+uv run python scripts/download_hugging_face.py --split train
+```
+
+The script downloads `earl562/mango-varieties` to `data/raw/hugging_face_data/`. It pins commit `f482454c26bcab8137b0eed3e45317e8bf6ff260` so teammates get the same source version, even if upstream changes. All splits download by default; repeat `--split` to select multiple splits. `--output` overrides the destination; explicit relative paths resolve from the working directory.
+
+The source is approximately 466 MB: 3,093 train, 458 validation, and 529 test examples. Images and `variety_name` labels remain in the original `data/*.parquet` files alongside source metadata; this is not an extracted JPEG directory. Keep extraction or cleaning under `data/transformed/`. These upstream splits are source data, not a guarantee of leakage-free project evaluation splits.
+
+Rerun the same command after an interruption. Hugging Face handles cached downloads and partial-file recovery; keep the destination's `.cache/huggingface/` metadata. Split selection adds files without deleting previously downloaded splits. Raw downloads and their caches are already gitignored. The dataset is public; no token is required. An optional `HF_TOKEN` can be supplied in the shell or root `.env` (existing environment variables take precedence).
+
+To intentionally update the dataset, change the pinned revision in the script and this context together, and use a fresh destination to avoid mixing old files with a new snapshot. Do not edit downloaded raw files.
+
+## Gemini annotations
+
+`scripts/annotate_mangoes.py` processes raw SharePoint HEICs through Gemini's Interactions API (`client.interactions.create`), three images per request by default, with requests sent sequentially. This is the regular API, not asynchronous Batch. Requests use a Pydantic JSON schema and `store=False`; progress is persisted locally. Run from `ml-models/`:
+
+```bash
+uv run python scripts/annotate_mangoes.py
+uv run python scripts/annotate_mangoes.py --limit 20
+uv run python scripts/annotate_mangoes.py --export-only
+```
+
+No flags means all unfinished images. The limit counts images, not groups. Use `--input` for a source directory, `--output` for a JSONL results file, `--model` to change the model, `--group-size` (1–5, default 3), or `--delay` to change the default two-second pause between requests. Rate-limit retries still use longer backoff. Explicit relative paths resolve from the working directory; default paths resolve from the script.
+
+Each grouped response must have exactly one unique image ID per input. Responses are matched by ID, not order, and saved as individual records: one image per JSONL line, never nested groups. The final request may contain fewer than three images. Invalid groups are retried once and left unfinished if still invalid; three consecutive invalid groups stop the run. Already-saved results from the original single-image prompt are accepted during migration. New grouped results fingerprint the group prompt/schema and configured group size. An interruption during saving may repeat only the unsaved images, even if Google already processed them.
+
+Set `GEMINI_API_KEY` in the repository-root `.env` or shell; existing environment variables take precedence. Results are saved immediately in `data/manifests/sharepoint_gemini/annotations.jsonl`. Rerun the same command after an interruption to reuse successful annotations matching the source path/hash, model, and prompt/schema fingerprint. Valid missing labels also count as completed responses. An in-flight request interrupted before saving may be repeated.
+
+Each result preserves the full `post_it_text`, cultivar transcription, specimen code, exterior/interior/unknown view, and readability flag, plus source and request provenance. These are draft annotations, not human-approved labels. CSV export is offline and writes `annotations.csv` beside the results with pending review status. It includes the latest successful source revision per model/prompt configuration; it is not automatically a current training manifest.
+
+Saved records contain only `raw_path`, `sha256`, `model`, `fingerprint`, `completed_at`, and `annotation`. Older records with extra fields still resume correctly. CSV exports omit the redundant sample ID.
+
+Retries back off before stopping with progress preserved. Fatal API errors stop immediately. Sanitized errors appear only in the CLI, including the provider message, API code, and request ID when available; no error file is written. Full request/response bodies are not logged. An exclusive lock prevents concurrent writers to the same output. Unreadable-file and invalid-response failures remain eligible on the next run. Completed results are never deleted automatically.
+
+The installed SDK exposes Interactions errors through `google.genai._gaos.lib.compat_errors` and needs an explicit Interactions retry override to avoid extra automatic retries. Recheck these SDK-specific details when upgrading `google-genai`; run `uv run pytest tests/test_annotate_mangoes.py` (mocked requests, no API quota).
+
+Tests: `uv run pytest tests/test_annotate_mangoes.py` (mocked; no paid calls).
+
 ## Planned cleaning flow
 
 ```text
 raw HEIC/MOV files
     -> inventory and file validation
     -> HEIC decode, orientation correction, RGB/sRGB conversion
-    -> optional OCR suggestion
+    -> Gemini annotation suggestion (including full post-it transcription)
     -> human label and view-type review
     -> reviewed mango bounding box
     -> padded JPEG crop in data/transformed/
@@ -81,7 +124,7 @@ raw_path
 transformed_path
 companion_mov
 sha256
-ocr_text
+post_it_text
 variety_raw
 variety_canonical
 specimen_code
@@ -97,7 +140,7 @@ The intended manifest progression is:
 
 ```text
 inventory.csv       Automatically discovered facts.
-annotations.csv     OCR suggestions plus human corrections and crop decisions.
+annotations.csv     Annotation suggestions plus human corrections and crop decisions.
 training.csv        Derived approved samples eligible for a particular experiment.
 ```
 
