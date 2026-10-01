@@ -1,6 +1,6 @@
 # Mango Identification
 
-Next.js App Router frontend for Professor Jha's mango identification project. The current experience is a local prototype; no model or backend is connected.
+Next.js App Router frontend for Professor Jha's mango identification project. It sends photos to the API in `../server` (default `http://localhost:8080`, override with `NEXT_PUBLIC_API_URL`).
 
 ## Development
 
@@ -19,18 +19,19 @@ Production: `npm run build`, then `npm start`.
 ## Routes
 
 - `/`: fruit/leaf uploads, image previews, and optional plant features.
-- `/processing`: animated mango and simulated progress, followed by automatic navigation.
-- `/predictions-result`: a primary prediction and nine alternatives from mock data.
+- `/processing`: animated mango while the API request runs; shows an error if it fails.
+- `/predictions-result`: the top match and nine alternatives returned by the API.
 
 ## Code organization
 
 - `app/`: routes, shared layout, global styles, and processing animation styles.
 - `components/`: upload form, upload cards, optional features, prediction cards, score ring, and UF header/footer.
 - `lib/types.ts`: shared photo and prediction types.
-- `lib/const.ts`: mock prediction response and simulated processing duration.
+- `lib/api.ts`: sends photos to the API and holds the result between pages.
+- `lib/const.ts`: expected processing time for the progress bar.
 - `public/`: static assets, including the placeholder mango illustration.
 
-The upload form owns photo state; the optional feature section owns its own rows. Features and uploaded photos are not sent to an API. Image object URLs are local to the upload form; submissions are not persisted across reloads. Results use the same illustrative fixture regardless of the uploaded images.
+The upload form owns photo state; the optional feature section owns its own rows and is not sent to the API. Results live in memory, so reloading the results page clears them.
 
 ## Styling
 
@@ -47,4 +48,4 @@ Fonts load through Google Fonts. The header currently uses text identification r
 
 ## Prototype limitations
 
-Predictions, scores, descriptions, and cultivar imagery are placeholders. Processing is a timer, not inference. The server and model directories outside this client are reserved for future implementation.
+Until trained models exist, the API runs in mock mode and the results page shows a "Demo results" notice. Cultivar descriptions and imagery are placeholders.

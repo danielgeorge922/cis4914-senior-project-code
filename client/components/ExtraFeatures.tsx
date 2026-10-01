@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 const options = [
   "Leaf length",
@@ -8,7 +9,14 @@ const options = [
   "Fruit length",
   "Tree age",
 ];
-type Row = { id: string; feature: string; value: string };
+const units: Record<string, string> = {
+  "Leaf length": "cm",
+  "Leaf width": "cm",
+  "Fruit weight": "g",
+  "Fruit length": "cm",
+  "Tree age": "years",
+};
+export type Row = { id: string; feature: string; value: string };
 
 function FeaturePicker({
   row,
@@ -87,8 +95,13 @@ function FeaturePicker({
   );
 }
 
-export default function ExtraFeatures() {
-  const [rows, setRows] = useState<Row[]>([]);
+export default function ExtraFeatures({
+  rows,
+  setRows,
+}: {
+  rows: Row[];
+  setRows: Dispatch<SetStateAction<Row[]>>;
+}) {
   return (
     <section
       className="mt-8 rounded-2xl border border-gray-200 p-5 sm:p-6"
@@ -136,7 +149,9 @@ export default function ExtraFeatures() {
               aria-label={
                 row.feature ? row.feature + " value" : "Feature value"
               }
-              placeholder="Enter value"
+              placeholder={
+                row.feature ? `Value in ${units[row.feature]}` : "Enter value"
+              }
               value={row.value}
               onChange={(event) =>
                 setRows((previous) =>
