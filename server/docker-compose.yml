@@ -1,0 +1,28 @@
+services:
+  triton:
+    image: nvcr.io/nvidia/tritonserver:24.12-py3
+    command: tritonserver --model-repository=/models
+    volumes:
+      - ./model_repository:/models:ro
+    ports:
+      - "8000:8000" # HTTP
+    # To use an NVIDIA GPU, uncomment:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  api:
+    build: .
+    environment:
+      TRITON_URL: http://triton:8000
+      MODEL_REPOSITORY: /models
+    volumes:
+      - ./model_repository:/models:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - triton

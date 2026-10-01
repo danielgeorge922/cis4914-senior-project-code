@@ -2,20 +2,28 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getPendingPrediction } from "../../lib/api";
 import { MOCK_PROCESSING_MS } from "../../lib/const";
 import styles from "./processing.module.css";
 
 export default function ProcessingPage() {
   const router = useRouter();
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
   useEffect(() => {
+    const request = getPendingPrediction();
+    if (!request) {
+      router.replace("/");
+      return;
+    }
     router.prefetch("/predictions-result");
     const started = performance.now();
+    // Estimated progress; holds at 95% until the response arrives.
     const interval = window.setInterval(
       () =>
         setProgress(
           Math.min(
-            100,
+            95,
             Math.round(
               ((performance.now() - started) / MOCK_PROCESSING_MS) * 100,
             ),
@@ -23,15 +31,38 @@ export default function ProcessingPage() {
         ),
       100,
     );
-    const timeout = window.setTimeout(
-      () => router.replace("/predictions-result"),
-      MOCK_PROCESSING_MS + 350,
-    );
+    let active = true;
+    request
+      .then(() => active && router.replace("/predictions-result"))
+      .catch((reason: Error) => active && setError(reason.message))
+      .finally(() => window.clearInterval(interval));
     return () => {
+      active = false;
       window.clearInterval(interval);
-      window.clearTimeout(timeout);
     };
   }, [router]);
+  if (error) {
+    return (
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="mx-auto flex w-full max-w-2xl flex-col items-center px-5 py-14 text-center sm:py-20"
+      >
+        <h1 className="text-3xl font-semibold tracking-tight text-uf-blue">
+          We couldn&apos;t identify your mango
+        </h1>
+        <p role="alert" className="mt-4 max-w-md text-gray-600">
+          {error}
+        </p>
+        <Link
+          href="/"
+          className="mt-7 inline-flex min-h-12 items-center rounded-lg bg-uf-blue px-6 font-semibold text-white hover:bg-uf-blue/90"
+        >
+          Back to upload
+        </Link>
+      </main>
+    );
+  }
   return (
     <main
       id="main-content"
@@ -84,12 +115,12 @@ export default function ProcessingPage() {
       </p>
       <div className="mt-8 w-full max-w-sm">
         <div className="mb-2 flex justify-between text-sm text-gray-600">
-          <span>Demo progress</span>
+          <span>Progress</span>
           <span>{progress}%</span>
         </div>
         <div
           role="progressbar"
-          aria-label="Demo processing progress"
+          aria-label="Processing progress"
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}
@@ -101,9 +132,6 @@ export default function ProcessingPage() {
           />
         </div>
       </div>
-      <p className="mt-5 text-xs text-gray-500">
-        Simulated loading · no model analysis is running
-      </p>
       <Link
         href="/"
         className="mt-7 inline-flex min-h-11 items-center text-sm text-uf-blue underline underline-offset-4"

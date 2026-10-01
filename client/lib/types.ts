@@ -3,6 +3,7 @@ export type Photo = {
   name: string;
   url: string;
   kind: "fruit" | "leaf";
+  file: File;
 };
 
 export type Prediction = {
@@ -15,4 +16,9 @@ export type Prediction = {
   description: string;
   metadata: { label: string; value: string }[];
   traits: string[];
+};
+
+export type PredictResponse = {
+  demo: boolean;
+  predictions: Prediction[];
 };
