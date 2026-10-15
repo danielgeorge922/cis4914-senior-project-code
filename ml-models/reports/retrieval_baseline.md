@@ -13,7 +13,7 @@ Mask refers to marking the non-mango part of the image, even if cropped, as gray
 The script applies a known masking otsu algorithm to analyze the average pixel differences. Assuming the corners of the image represent the background table color, the algorithm marks any pixels with a RGB difference less than a certain amount as being part of the table, and to be masked over. Anotehr loop comes by and fills in certain small boundaries of the opposite mask within a greater region. This is saved in `data/transformed/sharepoint_v1_masked/` (status in `data/manifests/sharepoint_v1/masks.csv`)
 
 # build manifest
-It organizes cropped and/or masked images with original labels as the original jupyter notebook did. Note that, a spell check is applied to Gemini's hand-read labels according to Claude's knowledge of mango varieties' proper spelling. It saves images in `data/manifests/sharepoint_v1/training.csv`
+It organizes cropped and/or masked images with original labels as the original jupyter notebook did. Note that, a spell check is applied to Gemini's hand-read labels according to Claude's knowledge of mango varieties' proper spelling. It saves images in `data/manifests/sharepoint_v1/training.csv`. Manifest just refers to Source of Truth for pre-processed images and labels.
 
 # retrieval baseline.py
 It fetches pre-processed images, and runs an embedding algorithm using Meta's's DinoV2 Computer Vision model. This embedding algorithm represents a vector description of the image according to the model, which we have not fine tuned. Since we are currently building a retrieval model, the similarity metric between any two images will be the dot product of its vectors embeddings, where 1 = same, and 0 = share nothing in common. 
@@ -23,7 +23,6 @@ Thus for every image in our sample, we track its embedding similarity between it
 
 We track a confusion matrix, how often a given mango variety is confused with another one. We also track our success rate for identifying the correct mango variety in the top-10 of candidates, as well as top-1 (a correct guess).
 
-
 ### Notes
 1. We have a ~20 cultivar (mango variety) subset with 5+ images. Testing on this subset shows how our model performs when it has at least a certain amount of image data.
 
@@ -32,6 +31,13 @@ For this 20 variety run, the top 10 accuracy percentage (ie, including the corre
 2. We also need to build an LLm reranker using the top 10 list. We can attach our confusion matrix as part of LLM context to show our model which mango varieties are often confused with each other.
 
 3. We overalll need to refine our pre-processing and ensure it is optimal, think of new and better architectures for our use case, and find more data if possible
+
+# rerank gemini.py
+Passes top 5 prediction data from a csv file (`runs/retrieval-dinov2-masked/top20/predictions.csv`) with what typa columsn (`query, true, rank, top10, best_match, best_match_cultivar, candidates`; `candidates` is a JSON list of the top 10, each with `cultivar`, `score` and `photo`. The only confidence weight is `score`, the cosine similarity of that cultivar's best-matching photo from another tree, between 0 and 1. It is not a probability, and it is not sent to Gemini; Gemini only gets the top 5 names in order), passes photos of mangos (the masked query photo plus one masked reference photo per candidate, each shrunk to 512 px JPEG), passes cultivars.jsonl mangpo data firectory (`data/reference/cultivar_traits.json`) (empty) for now, and sends to gemini (with what prompt /format exactly: one request per photo, made of the text below, then the query photo, then for each candidate a line `Candidate 1: SAIGON` followed by its reference photo; Gemini must answer as JSON `{"ranking": [5 names]}`, and any names it leaves out get added back in the original order)
+
+> The first photo is a mango of unknown cultivar. After it are 5 candidate cultivars, each shown with a photo of a mango of that cultivar from a different tree. Compare fruit shape, size, skin color, blush, spots and beak. Rank all 5 candidate names from most to least likely to match the first mango. Use the names exactly as given.
+
+asking to rerank the mango outputs with model `gemini-3.5-flash-lite`, output is actually worse than with only the base model as can be seen in `runs/rerank-gemini/metrics.json` (181 photos: top-1 26.5% → 21.5%, top-3 45.9% → 41.4%; Gemini fixed 7 answers and broke 16)
 
 
 
@@ -220,3 +226,26 @@ uv run python scripts/retrieval_baseline.py --masked --top-classes 20
 ```
 
 The cross-session numbers came from a one-off analysis and aren't wired into a script yet. Dependency added: `transformers`, in `pyproject.toml` / `uv.lock`.
+
+## 10. Gemini reranker
+
+**What it does.** Retrieval gives each photo a ranked shortlist of cultivars. The reranker sends Gemini the photo plus the top 5 candidates, each shown with its closest-matching photo from a different tree (and the cultivar's traits, once `data/reference/cultivar_traits.json` is filled in). Gemini returns the 5 names in a new order. The idea is that the LLM can catch things the embedding misses, like shape, beak or blush.
+
+**How it's built.**
+- `retrieval_baseline.py` now saves each photo's top 10 in `predictions.csv` (`candidates` column: cultivar, score, reference photo path), so the reranker reuses the shortlist instead of recomputing it.
+- `scripts/rerank_gemini.py`: images shrunk to 512 px, model `gemini-3.5-flash-lite`, 5 requests at a time, retries when Gemini is busy (503) or rate-limited (429). Each answer is saved to `answers.jsonl` as it arrives, so a rerun skips photos already done.
+- `cultivar_traits.json` is an empty template (shape, size, skin color, blush, beak, flesh color, notes, sources) for the team to fill in. Empty fields aren't sent.
+- Run on its own with `uv run python scripts/rerank_gemini.py`, or right after retrieval with `uv run python scripts/retrieval_baseline.py --masked --top-classes 20 --rerank`.
+
+**Results (20-cultivar subset, 181 photos, photos only, no traits):**
+
+| | Retrieval | After Gemini |
+|---|---|---|
+| Top-1 | **26.5%** | 21.5% |
+| Top-3 | **45.9%** | 41.4% |
+
+- The true cultivar was in the 5 candidates for 58.6% of photos, which caps what any reordering can reach.
+- Gemini fixed 7 answers and broke 16.
+- Results: `runs/rerank-gemini/metrics.json` and `answers.jsonl`. An earlier 2-photo test with 10 candidates and `gemini-3.8-flash` is kept in `old_answers_flash_top10.jsonl`.
+
+**Takeaway.** With photos alone, Gemini reranking makes retrieval slightly worse. That matches INQUIRE (arXiv 2411.02537), where LLM reranking barely helped on species ID: general-purpose LLMs aren't good at fine-grained plant varieties. The cheap things left to try are filling in the trait sheet (lets Gemini compare against known descriptions instead of photos alone) and a stronger model than flash-lite. Until one of those helps, retrieval alone should stay the default.
