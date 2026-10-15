@@ -28,14 +28,15 @@ def build(annotations=ANNOTATIONS, out_dir=OUT_DIR):
     df["cultivar_raw"] = df["annotation.cultivar"]
     df["cultivar"] = df["annotation.cultivar"].map(normalize)
     df["cultivar"] = df["cultivar"].map(lambda c: alias_map.get(c, c) if pd.notna(c) else c)
-    df = df[df["cultivar"].notna() & df["annotation.view_type"].eq("exterior")].copy()
+    df = df[df["cultivar"].notna() & df["annotation.view_type"].isin(["exterior", "interior"])].copy()
+    df["view"] = df["annotation.view_type"]
 
     # Specimen codes are grouped per cultivar (as in the notebook); photos without a code are their own group.
     code = df["annotation.specimen_code"].astype("string").str.replace(r"\s+", "", regex=True).str.upper()
     df["specimen"] = (df["cultivar"] + "|" + code).where(code.notna() & code.ne(""), "PHOTO|" + df["raw_path"])
     df["sample_id"] = df["raw_path"].map(lambda p: Path(p).stem)
 
-    out = df[["sample_id", "raw_path", "sha256", "cultivar_raw", "cultivar", "specimen"]].sort_values("sample_id")
+    out = df[["sample_id", "raw_path", "sha256", "cultivar_raw", "cultivar", "specimen", "view"]].sort_values("sample_id")
     out_path = Path(out_dir) / "training.csv"
     out.to_csv(out_path, index=False)
 

@@ -81,9 +81,17 @@ def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10)):
             hits[k].append(rank < k)
             chance[k].append(min(k, len(ranked)) / len(ranked))
         best = np.where(gallery)[0][sims[q, gallery].argmax()]
+        # Each shortlisted cultivar with its best-matching photo from another tree (reference for the reranker).
+        candidates = []
+        for c in ranked[:10]:
+            allowed = np.where(gallery & (labels == c))[0]
+            match = allowed[sims[q, allowed].argmax()]
+            candidates.append({"cultivar": c, "score": round(float(scores[c]), 4),
+                               "photo": samples.transformed_path[match]})
         rows.append({"query": samples.transformed_path[q], "true": labels[q], "rank": rank + 1,
                      "top10": "; ".join(f"{c} ({scores[c]:.3f})" for c in ranked[:10]),
-                     "best_match": samples.transformed_path[best], "best_match_cultivar": labels[best]})
+                     "best_match": samples.transformed_path[best], "best_match_cultivar": labels[best],
+                     "candidates": json.dumps(candidates)})
 
     predictions = pd.DataFrame(rows)
     predictions["pred"] = predictions.top10.str.split(" \\(").str[0]
@@ -111,10 +119,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--top-classes", type=int, help="Restrict queries and gallery to the N most-specimen cultivars.")
     parser.add_argument("--masked", action="store_true", help="Use background-masked crops (scripts/mask_background.py).")
+    parser.add_argument("--rerank", action="store_true", help="Then rerank each top-10 with Gemini (scripts/rerank_gemini.py).")
     args = parser.parse_args()
 
     run_dir = RUN_DIR.with_name(RUN_DIR.name + "-masked") if args.masked else RUN_DIR
     samples = load_samples(MASKS_CSV if args.masked else CROPS_CSV)
+    samples = samples[samples.view.eq("exterior")].reset_index(drop=True)
     embeddings = embed(samples, run_dir / "embeddings.npz")
     out_dir = run_dir
     if args.top_classes:
@@ -130,6 +140,10 @@ def main():
     print("Most confused (true -> predicted, count):")
     for pair in metrics["most_confused"][:10]:
         print(f"  {pair['true']} -> {pair['predicted']}: {pair['count']}")
+
+    if args.rerank:
+        from rerank_gemini import rerank
+        rerank(out_dir / "predictions.csv", out_dir / "rerank")
     return 0
 
 

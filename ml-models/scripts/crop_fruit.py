@@ -87,7 +87,7 @@ def run(limit=None, prompt="a mango fruit", min_score=0.2, model_name=MODEL):
             rows.append(previous.loc[row.sample_id].to_dict() | {"sample_id": row.sample_id})
             continue
         image = open_photo(ML_ROOT / row.raw_path)
-        box, score = detect(image, processor, model, prompt)
+        box, score = detect(image, processor, model, "a cut mango" if row.view == "interior" else prompt)
         status = "ok" if box is not None and score >= min_score else "low_conf"
         if box is None:
             box = (0, 0, image.width, image.height)
