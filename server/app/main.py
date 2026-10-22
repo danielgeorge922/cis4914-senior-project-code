@@ -6,7 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import Settings
 from app.routes import router
 from app.services.catalog import Catalog, load_labels
-from app.services.inference import MockClassifier, TritonClassifier
+from app.services.crop import FruitCropper, NoCrop
+from app.services.inference import MockClassifier, OnnxClassifier, TritonClassifier
 
 settings = Settings()
 
@@ -18,9 +19,13 @@ async def lifespan(app: FastAPI):
     app.state.settings = settings
     app.state.catalog = catalog
     app.state.labels = labels
-    app.state.classifier = (
-        MockClassifier(len(labels)) if settings.mock_inference else TritonClassifier(settings)
-    )
+    app.state.cropper = FruitCropper() if settings.crop else NoCrop()
+    if settings.mock_inference:
+        app.state.classifier = MockClassifier(len(labels))
+    elif settings.use_triton:
+        app.state.classifier = TritonClassifier(settings)
+    else:
+        app.state.classifier = OnnxClassifier(settings)
     yield
     await app.state.classifier.aclose()
 

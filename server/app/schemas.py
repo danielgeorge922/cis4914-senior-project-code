@@ -3,7 +3,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
-Kind = Literal["fruit", "leaf"]
+Kind = Literal["fruit"]
 
 
 class CamelModel(BaseModel):

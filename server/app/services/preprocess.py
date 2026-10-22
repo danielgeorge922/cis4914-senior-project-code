@@ -13,17 +13,27 @@ def load_image(data: bytes) -> Image.Image:
 
 
 def to_tensor(image: Image.Image, settings: Settings) -> np.ndarray:
-    """Resize the short side, center-crop, and normalize to a CHW float32 array."""
-    width, height = image.size
-    scale = settings.resize_size / min(width, height)
-    image = image.resize(
-        (max(1, round(width * scale)), max(1, round(height * scale))),
-        Image.Resampling.BILINEAR,
-    )
-    width, height = image.size
-    left = (width - settings.image_size) // 2
-    top = (height - settings.image_size) // 2
-    image = image.crop((left, top, left + settings.image_size, top + settings.image_size))
+    """Resize the photo the way the chosen model saw it in training, then normalize to a CHW float32 array."""
+    if settings.model == "classifier":
+        # Pad to a square, then resize (mango_transfer.PadResize).
+        image = ImageOps.pad(
+            image,
+            (settings.image_size, settings.image_size),
+            method=Image.Resampling.BILINEAR,
+            color=settings.pad_color,
+        )
+    else:
+        # Resize the short side, then center-crop (the DINOv2 processor).
+        width, height = image.size
+        scale = settings.resize_size / min(width, height)
+        image = image.resize(
+            (max(1, round(width * scale)), max(1, round(height * scale))),
+            Image.Resampling.BICUBIC,
+        )
+        width, height = image.size
+        left = (width - settings.image_size) // 2
+        top = (height - settings.image_size) // 2
+        image = image.crop((left, top, left + settings.image_size, top + settings.image_size))
 
     pixels = np.asarray(image, dtype=np.float32) / 255.0
     pixels = (pixels - np.array(settings.norm_mean, dtype=np.float32)) / np.array(
