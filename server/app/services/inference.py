@@ -20,7 +20,7 @@ class TritonClassifier:
 
     def __init__(self, settings: Settings):
         self.settings = settings
-        self.models: dict[Kind, str] = {"fruit": settings.fruit_model, "leaf": settings.leaf_model}
+        self.models: dict[Kind, str] = {"fruit": settings.model}
         self.client = httpx.AsyncClient(base_url=settings.triton_url, timeout=settings.triton_timeout_s)
 
     async def infer(self, kind: Kind, batch: np.ndarray) -> np.ndarray:
@@ -60,6 +60,24 @@ class TritonClassifier:
 
     async def aclose(self) -> None:
         await self.client.aclose()
+
+
+class OnnxClassifier:
+    """Runs the same model.onnx from model_repository directly, for when Triton isn't running."""
+
+    def __init__(self, settings: Settings):
+        import onnxruntime
+
+        self.settings = settings
+        path = settings.model_repository / settings.model / "1" / "model.onnx"
+        self.session = onnxruntime.InferenceSession(str(path))
+
+    async def infer(self, kind: Kind, batch: np.ndarray) -> np.ndarray:
+        tensor = np.ascontiguousarray(batch, dtype=np.float32)
+        return self.session.run([self.settings.model_output], {self.settings.model_input: tensor})[0]
+
+    async def aclose(self) -> None:
+        pass
 
 
 class MockClassifier:

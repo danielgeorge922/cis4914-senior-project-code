@@ -20,9 +20,14 @@ services:
     environment:
       TRITON_URL: http://triton:8000
       MODEL_REPOSITORY: /models
+      MODEL: ${MODEL:-classifier}
     volumes:
       - ./model_repository:/models:ro
+      - hf-cache:/root/.cache/huggingface
     ports:
       - "8080:8080"
     depends_on:
       - triton
+
+volumes:
+  hf-cache:

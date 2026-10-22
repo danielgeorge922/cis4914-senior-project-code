@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -11,10 +12,14 @@ class Settings(BaseSettings):
     # Random but repeatable scores, so the API works without Triton or trained models.
     mock_inference: bool = False
 
+    # False runs model.onnx in this process with onnxruntime instead of calling Triton.
+    use_triton: bool = True
     triton_url: str = "http://localhost:8000"
     triton_timeout_s: float = 30.0
-    fruit_model: str = "fruit_classifier"
-    leaf_model: str = "leaf_classifier"
+    # Which Triton model to call: Daniel's classifier or the DINOv2 retrieval model.
+    model: Literal["classifier", "retrieval"] = "classifier"
+    # OWL-ViT crop before retrieval (needs torch + transformers). Off: upload already-cropped photos.
+    crop: bool = False
     model_input: str = "input"
     model_output: str = "logits"
     model_repository: Path = SERVER_DIR / "model_repository"
@@ -23,6 +28,7 @@ class Settings(BaseSettings):
     # Must match the evaluation transform used in training.
     resize_size: int = 256
     image_size: int = 224
+    pad_color: tuple[int, int, int] = (124, 116, 104)
     norm_mean: tuple[float, float, float] = (0.485, 0.456, 0.406)
     norm_std: tuple[float, float, float] = (0.229, 0.224, 0.225)
 

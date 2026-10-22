@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/v1")
 async def predict(
     request: Request,
     files: list[UploadFile] = File(..., description="Photos of one tree"),
-    kinds: list[Kind] = Form(..., description="fruit or leaf for each photo, in the same order"),
+    kinds: list[Kind] = Form(..., description="fruit for each photo, in the same order"),
     features: str = Form("{}", description='Optional measurements as JSON, e.g. {"Fruit weight": 450}'),
 ) -> PredictResponse:
     state = request.app.state
@@ -25,7 +25,7 @@ async def predict(
 
     images = [await upload.read() for upload in files]
     tensors = await run_in_threadpool(
-        lambda: [to_tensor(load_image(data), settings) for data in images]
+        lambda: [to_tensor(state.cropper.crop(load_image(data)), settings) for data in images]
     )
 
     # Route each photo to the model for its kind (one call per model).

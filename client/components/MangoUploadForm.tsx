@@ -14,12 +14,6 @@ const categories = [
     description: "Show the whole fruit, including its shape and skin color.",
     tip: "Try a side view and a second angle in natural light.",
   },
-  {
-    kind: "leaf" as const,
-    title: "Mango leaves",
-    description: "Show the leaf shape, edges, and visible veins.",
-    tip: "Place a leaf against a plain background with the entire leaf visible.",
-  },
 ];
 
 export default function MangoUploadForm() {
@@ -89,7 +83,7 @@ export default function MangoUploadForm() {
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-xl font-semibold">Upload your photos</h2>
         <p className="text-sm text-gray-600">
-          At least one fruit or leaf image
+          At least one fruit image
         </p>
       </div>
       <div className="grid gap-5 md:grid-cols-2">

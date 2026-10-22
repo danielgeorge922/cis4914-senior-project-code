@@ -44,5 +44,5 @@ def load_labels(settings: Settings, catalog: Catalog) -> list[str]:
     """Class names in model output order. Both models must share the same list."""
     if settings.mock_inference:
         return list(catalog.entries)
-    path = settings.model_repository / settings.fruit_model / "labels.json"
+    path = settings.model_repository / settings.model / "labels.json"
     return json.loads(path.read_text(encoding="utf-8"))
