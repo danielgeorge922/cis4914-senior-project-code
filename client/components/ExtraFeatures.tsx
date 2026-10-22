@@ -146,6 +146,9 @@ export default function ExtraFeatures({
               }
             />
             <input
+              type="number"
+              min="0"
+              step="any"
               aria-label={
                 row.feature ? row.feature + " value" : "Feature value"
               }
