@@ -20,7 +20,7 @@ services:
     environment:
       TRITON_URL: http://triton:8000
       MODEL_REPOSITORY: /models
-      MODEL: ${MODEL:-classifier}
+      MODEL: ${MODEL:-retrieval}
     volumes:
       - ./model_repository:/models:ro
       - hf-cache:/root/.cache/huggingface

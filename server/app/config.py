@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     triton_url: str = "http://localhost:8000"
     triton_timeout_s: float = 30.0
     # Which Triton model to call: Daniel's classifier or the DINOv2 retrieval model.
-    model: Literal["classifier", "retrieval"] = "classifier"
+    model: Literal["classifier", "retrieval"] = "retrieval"
     # OWL-ViT crop before retrieval (needs torch + transformers). Off: upload already-cropped photos.
-    crop: bool = False
+    crop: bool = True
     model_input: str = "input"
     model_output: str = "logits"
     model_repository: Path = SERVER_DIR / "model_repository"

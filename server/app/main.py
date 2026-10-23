@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
     app.state.settings = settings
     app.state.catalog = catalog
     app.state.labels = labels
-    app.state.cropper = FruitCropper() if settings.crop else NoCrop()
+    app.state.cropper = FruitCropper() if settings.crop and settings.model == "retrieval" else NoCrop()
     if settings.mock_inference:
         app.state.classifier = MockClassifier(len(labels))
     elif settings.use_triton:
