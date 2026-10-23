@@ -20,7 +20,8 @@ class TritonClassifier:
 
     def __init__(self, settings: Settings):
         self.settings = settings
-        self.models: dict[Kind, str] = {"fruit": settings.model}
+        # No leaf model yet, so leaf photos go to the same model as fruit.
+        self.models: dict[Kind, str] = {"fruit": settings.model, "leaf": settings.model}
         self.client = httpx.AsyncClient(base_url=settings.triton_url, timeout=settings.triton_timeout_s)
 
     async def infer(self, kind: Kind, batch: np.ndarray) -> np.ndarray:

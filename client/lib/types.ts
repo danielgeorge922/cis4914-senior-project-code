@@ -2,7 +2,7 @@ export type Photo = {
   id: string;
   name: string;
   url: string;
-  kind: "fruit";
+  kind: "fruit" | "leaf";
   file: File;
 };
 

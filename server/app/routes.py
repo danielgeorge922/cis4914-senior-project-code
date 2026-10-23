@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/v1")
 async def predict(
     request: Request,
     files: list[UploadFile] = File(..., description="Photos of one tree"),
-    kinds: list[Kind] = Form(..., description="fruit for each photo, in the same order"),
+    kinds: list[Kind] = Form(..., description="fruit or leaf for each photo, in the same order"),
     features: str = Form("{}", description='Optional measurements as JSON, e.g. {"Fruit weight": 450}'),
 ) -> PredictResponse:
     state = request.app.state

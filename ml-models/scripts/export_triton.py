@@ -1,5 +1,6 @@
 """Train Daniel's exterior_4plus EfficientNetB0 (same settings as notebooks/inital_models.ipynb) and export it for Triton."""
 import json
+import sys
 from pathlib import Path
 
 import torch
@@ -20,12 +21,16 @@ output [{ name: "logits", data_type: TYPE_FP32, dims: [%d] }]
 
 def main():
     torch.hub.set_dir(str(ML_ROOT / "runs/.torch-cache"))
-    experiments = transfer.prepare_experiments(MANIFEST, ML_ROOT, seed=4914)
-    results = transfer.run_training(
-        {"exterior_4plus": experiments["exterior_4plus"]}, MANIFEST, ML_ROOT / "runs/four-model-transfer",
-        architectures=["EfficientNetB0"], epochs=10, patience=3, learning_rate=1e-3, batch_size=16, seed=4914,
-    )
-    run_dir = results[("exterior_4plus", "EfficientNetB0")]["run_dir"]
+    # Pass a saved run directory to export it without training again.
+    if len(sys.argv) > 1:
+        run_dir = sys.argv[1]
+    else:
+        experiments = transfer.prepare_experiments(MANIFEST, ML_ROOT, seed=4914)
+        results = transfer.run_training(
+            {"exterior_4plus": experiments["exterior_4plus"]}, MANIFEST, ML_ROOT / "runs/four-model-transfer",
+            architectures=["EfficientNetB0"], epochs=10, patience=3, learning_rate=1e-3, batch_size=16, seed=4914,
+        )
+        run_dir = results[("exterior_4plus", "EfficientNetB0")]["run_dir"]
     model, class_names = transfer.load_run(run_dir, device="cpu")
 
     (MODEL_DIR / "1").mkdir(parents=True, exist_ok=True)
