@@ -88,6 +88,18 @@ export default function PredictionsResultPage() {
           predictions.
         </p>
       )}
+
+      <div className="mb-4">
+        <Link
+          href="/"
+          onClick={() => clearPrediction()}
+          className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3.5 py-1.5 text-sm font-semibold text-gray-700 shadow-xs hover:border-uf-blue hover:bg-gray-50 hover:text-uf-blue transition-colors"
+        >
+          <span aria-hidden="true" className="text-base leading-none">←</span>
+          <span>Back to submission page</span>
+        </Link>
+      </div>
+
       <PrimaryPredictionCard prediction={primary} />
       <h2 className="mb-5 mt-10 text-2xl font-semibold">
         Other possible matches
