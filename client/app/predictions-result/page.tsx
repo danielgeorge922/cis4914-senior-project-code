@@ -3,11 +3,14 @@ import Link from "next/link";
 import { useState } from "react";
 import PrimaryPredictionCard from "../../components/PrimaryPredictionCard";
 import SecondaryPredictionCard from "../../components/SecondaryPredictionCard";
-import { clearPrediction, getLatestPrediction } from "../../lib/api";
-import type { PredictResponse } from "../../lib/types";
+import SubmittedImageModal from "../../components/SubmittedImageModal";
+import { clearPrediction, getLatestPrediction, getSubmittedPhotos } from "../../lib/api";
+import type { PredictResponse, SubmittedPhoto } from "../../lib/types";
 
 export default function PredictionsResultPage() {
   const [result] = useState<PredictResponse | null>(() => getLatestPrediction());
+  const [photos] = useState<SubmittedPhoto[]>(() => getSubmittedPhotos());
+  const [showImageModal, setShowImageModal] = useState(false);
 
   if (!result) {
     return (
@@ -48,11 +51,31 @@ export default function PredictionsResultPage() {
             Meet your possible matches.
           </h1>
         </div>
-        {result.modelName && (
-          <span className="inline-flex items-center rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-uf-blue border border-blue-200">
-            Model: {result.modelName}
-          </span>
-        )}
+
+        <div className="flex flex-wrap items-center gap-2.5">
+          {photos.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowImageModal(true)}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-gray-300 bg-white px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-xs hover:border-uf-blue hover:bg-gray-50 hover:text-uf-blue transition-colors"
+              title="Click to view your submitted photo"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photos[0].dataUrl}
+                alt="Submitted photo preview"
+                className="h-5 w-5 rounded-full object-cover border border-gray-200"
+              />
+              <span>Submitted image 👁️</span>
+            </button>
+          )}
+
+          {result.modelName && (
+            <span className="inline-flex items-center rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-uf-blue border border-blue-200">
+              Model: {result.modelName}
+            </span>
+          )}
+        </div>
       </div>
 
       <p className="mb-6 mt-3 text-gray-600">
@@ -86,6 +109,12 @@ export default function PredictionsResultPage() {
           Identify another mango →
         </Link>
       </div>
+
+      <SubmittedImageModal
+        isOpen={showImageModal}
+        onClose={() => setShowImageModal(false)}
+        photos={photos}
+      />
     </main>
   );
 }

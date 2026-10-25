@@ -6,6 +6,12 @@ export type Photo = {
   file: File;
 };
 
+export type SubmittedPhoto = {
+  name: string;
+  kind: "exterior" | "interior" | "fruit" | "leaf";
+  dataUrl: string;
+};
+
 export type Prediction = {
   id: string;
   rank: number;
