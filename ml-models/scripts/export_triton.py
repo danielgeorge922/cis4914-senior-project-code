@@ -22,6 +22,8 @@ output [{ name: "logits", data_type: TYPE_FP32, dims: [%d] }]
 def main():
     torch.hub.set_dir(str(ML_ROOT / "runs/.torch-cache"))
     # Pass a saved run directory to export it without training again.
+    target_name = sys.argv[2] if len(sys.argv) > 2 else "classifier"
+    model_dir = ML_ROOT.parent / f"server/model_repository/{target_name}"
     if len(sys.argv) > 1:
         run_dir = sys.argv[1]
     else:
@@ -33,15 +35,15 @@ def main():
         run_dir = results[("exterior_4plus", "EfficientNetB0")]["run_dir"]
     model, class_names = transfer.load_run(run_dir, device="cpu")
 
-    (MODEL_DIR / "1").mkdir(parents=True, exist_ok=True)
+    (model_dir / "1").mkdir(parents=True, exist_ok=True)
     torch.onnx.export(
-        model, (torch.zeros(2, 3, 224, 224),), MODEL_DIR / "1/model.onnx",
+        model, (torch.zeros(2, 3, 224, 224),), model_dir / "1/model.onnx",
         input_names=["input"], output_names=["logits"],
         dynamic_shapes={"x": {0: torch.export.Dim("batch", max=8)}}, external_data=False, opset_version=18,
     )
-    (MODEL_DIR / "labels.json").write_text(json.dumps(class_names, indent=2), encoding="utf-8")
-    (MODEL_DIR / "config.pbtxt").write_text(CONFIG % len(class_names), encoding="utf-8")
-    print(f"Exported {run_dir} -> {MODEL_DIR}")
+    (model_dir / "labels.json").write_text(json.dumps(class_names, indent=2), encoding="utf-8")
+    (model_dir / "config.pbtxt").write_text(CONFIG.replace('name: "classifier"', f'name: "{target_name}"') % len(class_names), encoding="utf-8")
+    print(f"Exported {run_dir} -> {model_dir}")
 
 
 if __name__ == "__main__":

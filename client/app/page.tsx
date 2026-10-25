@@ -15,8 +15,8 @@ export default function Home() {
           Get to know your mango.
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-700 sm:text-lg">
-          Upload photos of a mango fruit, its leaves, or both to help identify
-          its cultivar and learn about its characteristics.
+          Upload photos of an intact exterior mango fruit, a cut-open interior view,
+          or both to help identify its cultivar and learn about its characteristics.
         </p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-600">
           Identification is an estimate, not a guarantee. Clear photos from

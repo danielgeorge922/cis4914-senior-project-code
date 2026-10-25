@@ -1,11 +1,14 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import PrimaryPredictionCard from "../../components/PrimaryPredictionCard";
 import SecondaryPredictionCard from "../../components/SecondaryPredictionCard";
-import { getLatestPrediction } from "../../lib/api";
+import { clearPrediction, getLatestPrediction } from "../../lib/api";
+import type { PredictResponse } from "../../lib/types";
 
 export default function PredictionsResultPage() {
-  const result = getLatestPrediction();
+  const [result] = useState<PredictResponse | null>(() => getLatestPrediction());
+
   if (!result) {
     return (
       <main
@@ -28,6 +31,7 @@ export default function PredictionsResultPage() {
       </main>
     );
   }
+
   const [primary, ...alternatives] = result.predictions;
   return (
     <main
@@ -35,12 +39,22 @@ export default function PredictionsResultPage() {
       tabIndex={-1}
       className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8"
     >
-      <p className="text-sm font-semibold tracking-widest text-uf-blue uppercase">
-        Identification results
-      </p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-        Meet your possible matches.
-      </h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold tracking-widest text-uf-blue uppercase">
+            Identification results
+          </p>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Meet your possible matches.
+          </h1>
+        </div>
+        {result.modelName && (
+          <span className="inline-flex items-center rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-uf-blue border border-blue-200">
+            Model: {result.modelName}
+          </span>
+        )}
+      </div>
+
       <p className="mb-6 mt-3 text-gray-600">
         Your top 10 cultivars, ranked by match score.
       </p>
@@ -66,6 +80,7 @@ export default function PredictionsResultPage() {
       <div className="mt-8 text-center">
         <Link
           href="/"
+          onClick={() => clearPrediction()}
           className="inline-flex min-h-12 items-center rounded-lg bg-uf-blue px-6 font-semibold text-white hover:bg-uf-blue/90"
         >
           Identify another mango →
@@ -74,3 +89,4 @@ export default function PredictionsResultPage() {
     </main>
   );
 }
+

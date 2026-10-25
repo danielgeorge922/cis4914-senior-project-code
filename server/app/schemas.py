@@ -3,7 +3,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
-Kind = Literal["fruit", "leaf"]
+Kind = Literal["fruit", "leaf", "exterior", "interior"]
 
 
 class CamelModel(BaseModel):
@@ -30,4 +30,5 @@ class Prediction(CamelModel):
 
 class PredictResponse(CamelModel):
     demo: bool
+    model_name: str = "EfficientNet-B0"
     predictions: list[Prediction]

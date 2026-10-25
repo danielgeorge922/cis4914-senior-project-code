@@ -2,7 +2,7 @@ export type Photo = {
   id: string;
   name: string;
   url: string;
-  kind: "fruit" | "leaf";
+  kind: "exterior" | "interior" | "fruit" | "leaf";
   file: File;
 };
 
@@ -20,5 +20,6 @@ export type Prediction = {
 
 export type PredictResponse = {
   demo: boolean;
+  modelName?: string;
   predictions: Prediction[];
 };

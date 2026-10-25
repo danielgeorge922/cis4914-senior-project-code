@@ -20,15 +20,15 @@ export default function SecondaryPredictionCard({
         </div>
         <PredictionScore score={prediction.matchScore} />
       </div>
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-4 flex items-center gap-4">
         <Image
           src={prediction.image}
           alt={prediction.imageAlt}
-          width={64}
-          height={64}
-          className="rounded-lg bg-white"
+          width={72}
+          height={72}
+          className="aspect-square h-18 w-18 shrink-0 rounded-xl bg-white object-cover border border-gray-200"
         />
-        <p className="text-sm leading-relaxed text-gray-600">
+        <p className="text-sm leading-relaxed text-gray-600 line-clamp-3">
           {prediction.description}
         </p>
       </div>

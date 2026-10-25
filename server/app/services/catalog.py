@@ -16,28 +16,33 @@ class Catalog:
 
     def __init__(self, entries: dict[str, dict]):
         self.entries = entries
+        self.by_upper = {k.upper(): v for k, v in entries.items()}
 
     @classmethod
     def load(cls, path: Path) -> "Catalog":
         return cls(json.loads(path.read_text(encoding="utf-8")))
 
     def describe(self, label: str) -> dict:
-        entry = self.entries.get(label, {})
+        entry = self.by_upper.get(label.upper(), self.entries.get(label, {}))
+        slug = slugify(label)
+        default_image = f"/cultivars/{slug}.jpg"
+        image = entry.get("image") or default_image
         return {
-            "id": slugify(label),
-            "name": entry.get("name", label),
-            "image": entry.get("image", PLACEHOLDER_IMAGE),
+            "id": slug,
+            "name": entry.get("name", label.title()),
+            "image": image,
             "image_alt": entry.get(
-                "imageAlt", "Placeholder mango illustration, not a cultivar reference photograph"
+                "imageAlt", f"Reference photograph of {label.title()} mango cultivar"
             ),
-            "description": entry.get("description", "Reference information has not been added yet."),
+            "description": entry.get("description", f"Cultivar reference for {label.title()}."),
             "metadata": entry.get("metadata", []),
             "traits": entry.get("traits", []),
         }
 
     def ranges(self, label: str) -> dict:
         """Known measurement ranges, e.g. {"Fruit weight": [300, 700]}."""
-        return self.entries.get(label, {}).get("ranges", {})
+        entry = self.by_upper.get(label.upper(), self.entries.get(label, {}))
+        return entry.get("ranges", {})
 
 
 def load_labels(settings: Settings, catalog: Catalog) -> list[str]:

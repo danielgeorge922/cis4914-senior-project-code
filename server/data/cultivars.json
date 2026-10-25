@@ -1,12 +1,2058 @@
 {
-  "Kent": {},
-  "Keitt": {},
-  "Tommy Atkins": {},
-  "Ataulfo": {},
-  "Alphonso": {},
-  "Haden": {},
-  "Palmer": {},
-  "Francis": {},
-  "Kesar": {},
-  "Valencia Pride": {}
+  "9816": {
+    "name": "9816",
+    "image": "/cultivars/9816.jpg",
+    "imageAlt": "Photograph of 9816 mango cultivar specimen",
+    "description": "A distinct mango cultivar (9816) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "9816"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ALICE": {
+    "name": "Alice",
+    "image": "/cultivars/alice.jpg",
+    "imageAlt": "Photograph of Alice mango cultivar specimen",
+    "description": "A distinct mango cultivar (Alice) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ALICE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ALPHONSO": {
+    "name": "Alphonso",
+    "image": "/cultivars/alphonso.jpg",
+    "imageAlt": "Photograph of Alphonso mango cultivar specimen",
+    "description": "Renowned as the King of Mangoes. Deep golden-yellow skin with non-fibrous, buttery flesh and an intense, rich tropical aroma.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ALPHONSO"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "King of Mangoes",
+      "Buttery Texture",
+      "Intense Aroma",
+      "Golden Flesh"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        450
+      ]
+    }
+  },
+  "ANGIE": {
+    "name": "Angie",
+    "image": "/cultivars/angie.jpg",
+    "imageAlt": "Photograph of Angie mango cultivar specimen",
+    "description": "A distinct mango cultivar (Angie) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ANGIE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "BAPISTA": {
+    "name": "Bapista",
+    "image": "/cultivars/bapista.jpg",
+    "imageAlt": "Photograph of Bapista mango cultivar specimen",
+    "description": "A distinct mango cultivar (Bapista) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "BAPISTA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "BENETT ALPHONSO": {
+    "name": "Benett Alphonso",
+    "image": "/cultivars/benett-alphonso.jpg",
+    "imageAlt": "Photograph of Benett Alphonso mango cultivar specimen",
+    "description": "A distinct mango cultivar (Benett Alphonso) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "BENETT ALPHONSO"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "BESENNARA": {
+    "name": "Besennara",
+    "image": "/cultivars/besennara.jpg",
+    "imageAlt": "Photograph of Besennara mango cultivar specimen",
+    "description": "A distinct mango cultivar (Besennara) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "BESENNARA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "BEVERLY": {
+    "name": "Beverly",
+    "image": "/cultivars/beverly.jpg",
+    "imageAlt": "Photograph of Beverly mango cultivar specimen",
+    "description": "A premium late-season Florida mango that remains green with occasional bronze blush. Completely fiberless with rich, sweet, complex flavor.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "BEVERLY"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Late Season",
+      "Green Ripe",
+      "Fiberless",
+      "Rich Flavor"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        500,
+        900
+      ]
+    }
+  },
+  "BULLOCK'S HEART": {
+    "name": "Bullock'S Heart",
+    "image": "/cultivars/bullocks-heart.jpg",
+    "imageAlt": "Photograph of Bullock'S Heart mango cultivar specimen",
+    "description": "A distinct mango cultivar (Bullock'S Heart) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "BULLOCK'S HEART"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "CAC": {
+    "name": "Cac",
+    "image": "/cultivars/cac.jpg",
+    "imageAlt": "Photograph of Cac mango cultivar specimen",
+    "description": "A distinct mango cultivar (Cac) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CAC"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "CAMBODIANA": {
+    "name": "Cambodiana",
+    "image": "/cultivars/cambodiana.jpg",
+    "imageAlt": "Photograph of Cambodiana mango cultivar specimen",
+    "description": "A distinct mango cultivar (Cambodiana) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CAMBODIANA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "CARABAO": {
+    "name": "Carabao",
+    "image": "/cultivars/carabao.jpg",
+    "imageAlt": "Photograph of Carabao mango cultivar specimen",
+    "description": "Famous Philippine mango noted for its elongated kidney shape, thin pale yellow skin, and exceptionally sweet, exotic tender flesh.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CARABAO"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Philippine Mango",
+      "Extremely Sweet",
+      "Thin Skin",
+      "Tender Flesh"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        200,
+        400
+      ]
+    }
+  },
+  "CARRIE": {
+    "name": "Carrie",
+    "image": "/cultivars/carrie.jpg",
+    "imageAlt": "Photograph of Carrie mango cultivar specimen",
+    "description": "A classic Florida condo mango with small to medium greenish-yellow fruit, non-fibrous melt-in-your-mouth flesh, and an intense spicy-sweet flavor.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CARRIE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Condo Mango",
+      "Fiberless",
+      "Spicy-Sweet Flavor",
+      "Soft Texture"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        450
+      ]
+    }
+  },
+  "CHOC ANON": {
+    "name": "Choc Anon",
+    "image": "/cultivars/choc-anon.jpg",
+    "imageAlt": "Photograph of Choc Anon mango cultivar specimen",
+    "description": "A distinct mango cultivar (Choc Anon) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CHOC ANON"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "COCONUT CREAM": {
+    "name": "Coconut Cream",
+    "image": "/cultivars/coconut-cream.jpg",
+    "imageAlt": "Photograph of Coconut Cream mango cultivar specimen",
+    "description": "A distinct mango cultivar (Coconut Cream) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "COCONUT CREAM"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "COGSHALL": {
+    "name": "Cogshall",
+    "image": "/cultivars/cogshall.jpg",
+    "imageAlt": "Photograph of Cogshall mango cultivar specimen",
+    "description": "An excellent dwarf variety for home gardens. Small to medium fruit with bright yellow and crimson skin, fiberless and richly sweet.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "COGSHALL"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Dwarf Tree",
+      "Fiberless",
+      "Vibrant Color",
+      "Home Garden"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        300,
+        500
+      ]
+    }
+  },
+  "COTTON CANDY": {
+    "name": "Cotton Candy",
+    "image": "/cultivars/cotton-candy.jpg",
+    "imageAlt": "Photograph of Cotton Candy mango cultivar specimen",
+    "description": "A distinct mango cultivar (Cotton Candy) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "COTTON CANDY"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "CUSHMAN": {
+    "name": "Cushman",
+    "image": "/cultivars/cushman.jpg",
+    "imageAlt": "Photograph of Cushman mango cultivar specimen",
+    "description": "A distinct mango cultivar (Cushman) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "CUSHMAN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "DIAMOND": {
+    "name": "Diamond",
+    "image": "/cultivars/diamond.jpg",
+    "imageAlt": "Photograph of Diamond mango cultivar specimen",
+    "description": "A distinct mango cultivar (Diamond) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "DIAMOND"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "DUNCAN": {
+    "name": "Duncan",
+    "image": "/cultivars/duncan.jpg",
+    "imageAlt": "Photograph of Duncan mango cultivar specimen",
+    "description": "A distinct mango cultivar (Duncan) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "DUNCAN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "DUNCAN X SIMMONDS": {
+    "name": "Duncan X Simmonds",
+    "image": "/cultivars/duncan-x-simmonds.jpg",
+    "imageAlt": "Photograph of Duncan X Simmonds mango cultivar specimen",
+    "description": "A distinct mango cultivar (Duncan X Simmonds) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "DUNCAN X SIMMONDS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "EDWARD": {
+    "name": "Edward",
+    "image": "/cultivars/edward.jpg",
+    "imageAlt": "Photograph of Edward mango cultivar specimen",
+    "description": "One of the finest-flavored mangoes ever bred in Florida. Smooth yellow skin with a pink blush, creamy fiberless texture, and luscious dessert flavor.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "EDWARD"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Premier Flavor",
+      "Fiberless",
+      "Creamy Flesh",
+      "Pink Blush"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        400,
+        700
+      ]
+    }
+  },
+  "EDWARD EARLE": {
+    "name": "Edward Earle",
+    "image": "/cultivars/edward-earle.jpg",
+    "imageAlt": "Photograph of Edward Earle mango cultivar specimen",
+    "description": "A distinct mango cultivar (Edward Earle) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "EDWARD EARLE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ELDON": {
+    "name": "Eldon",
+    "image": "/cultivars/eldon.jpg",
+    "imageAlt": "Photograph of Eldon mango cultivar specimen",
+    "description": "A distinct mango cultivar (Eldon) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ELDON"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "EWAIS": {
+    "name": "Ewais",
+    "image": "/cultivars/ewais.jpg",
+    "imageAlt": "Photograph of Ewais mango cultivar specimen",
+    "description": "Small to medium Egyptian cultivar known for its golden skin, intense tropical sweetness, and fiberless texture.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "EWAIS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Egyptian Origin",
+      "Intense Sweetness",
+      "Small Fruit",
+      "Fiberless"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        200,
+        400
+      ]
+    }
+  },
+  "FRUIT PUNCH": {
+    "name": "Fruit Punch",
+    "image": "/cultivars/fruit-punch.jpg",
+    "imageAlt": "Photograph of Fruit Punch mango cultivar specimen",
+    "description": "A distinct mango cultivar (Fruit Punch) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "FRUIT PUNCH"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "GIAZIER": {
+    "name": "Giazier",
+    "image": "/cultivars/giazier.jpg",
+    "imageAlt": "Photograph of Giazier mango cultivar specimen",
+    "description": "A distinct mango cultivar (Giazier) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GIAZIER"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "GLENN": {
+    "name": "Glenn",
+    "image": "/cultivars/glenn.jpg",
+    "imageAlt": "Photograph of Glenn mango cultivar specimen",
+    "description": "An early-season Florida favorite with a mild, sweet peach-like flavor and completely fiberless flesh. Thin bright-yellow skin with a radiant peach/red blush.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GLENN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Fiberless",
+      "Early Season",
+      "Peach Aroma",
+      "Florida Cultivar"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        300,
+        600
+      ]
+    }
+  },
+  "GLENN X DUNCAN": {
+    "name": "Glenn X Duncan",
+    "image": "/cultivars/glenn-x-duncan.jpg",
+    "imageAlt": "Photograph of Glenn X Duncan mango cultivar specimen",
+    "description": "A distinct mango cultivar (Glenn X Duncan) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GLENN X DUNCAN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "GOLDEN LIPPENS": {
+    "name": "Golden Lippens",
+    "image": "/cultivars/golden-lippens.jpg",
+    "imageAlt": "Photograph of Golden Lippens mango cultivar specimen",
+    "description": "A distinct mango cultivar (Golden Lippens) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GOLDEN LIPPENS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "GOUVEIA": {
+    "name": "Gouveia",
+    "image": "/cultivars/gouveia.jpg",
+    "imageAlt": "Photograph of Gouveia mango cultivar specimen",
+    "description": "A distinct mango cultivar (Gouveia) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GOUVEIA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "GRAHAM": {
+    "name": "Graham",
+    "image": "/cultivars/graham.jpg",
+    "imageAlt": "Photograph of Graham mango cultivar specimen",
+    "description": "A distinct mango cultivar (Graham) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "GRAHAM"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "HADEN": {
+    "name": "Haden",
+    "image": "/cultivars/haden.jpg",
+    "imageAlt": "Photograph of Haden mango cultivar specimen",
+    "description": "The historic Florida parent cultivar. Brilliant crimson-red blush over yellow skin, rich aroma, and luscious aromatic flesh.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "HADEN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Historic Florida Cultivar",
+      "Rich Aroma",
+      "Crimson Blush",
+      "Classic Flavor"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        450,
+        700
+      ]
+    }
+  },
+  "HADEN X BROOKS": {
+    "name": "Haden X Brooks",
+    "image": "/cultivars/haden-x-brooks.jpg",
+    "imageAlt": "Photograph of Haden X Brooks mango cultivar specimen",
+    "description": "A distinct mango cultivar (Haden X Brooks) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "HADEN X BROOKS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "HERMAN": {
+    "name": "Herman",
+    "image": "/cultivars/herman.jpg",
+    "imageAlt": "Photograph of Herman mango cultivar specimen",
+    "description": "A distinct mango cultivar (Herman) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "HERMAN"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "HODSON": {
+    "name": "Hodson",
+    "image": "/cultivars/hodson.jpg",
+    "imageAlt": "Photograph of Hodson mango cultivar specimen",
+    "description": "A distinct mango cultivar (Hodson) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "HODSON"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "HONG CAMBODIANA": {
+    "name": "Hong Cambodiana",
+    "image": "/cultivars/hong-cambodiana.jpg",
+    "imageAlt": "Photograph of Hong Cambodiana mango cultivar specimen",
+    "description": "A distinct mango cultivar (Hong Cambodiana) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "HONG CAMBODIANA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ITAMARACA": {
+    "name": "Itamaraca",
+    "image": "/cultivars/itamaraca.jpg",
+    "imageAlt": "Photograph of Itamaraca mango cultivar specimen",
+    "description": "A distinct mango cultivar (Itamaraca) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ITAMARACA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "JUICY PEACH": {
+    "name": "Juicy Peach",
+    "image": "/cultivars/juicy-peach.jpg",
+    "imageAlt": "Photograph of Juicy Peach mango cultivar specimen",
+    "description": "A distinct mango cultivar (Juicy Peach) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "JUICY PEACH"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "KENSINGTON PRIDE": {
+    "name": "Kensington Pride",
+    "image": "/cultivars/kensington-pride.jpg",
+    "imageAlt": "Photograph of Kensington Pride mango cultivar specimen",
+    "description": "A distinct mango cultivar (Kensington Pride) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "KENSINGTON PRIDE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "KENSINGTON PRIDE 2-10": {
+    "name": "Kensington Pride 2-10",
+    "image": "/cultivars/kensington-pride-2-10.jpg",
+    "imageAlt": "Photograph of Kensington Pride 2-10 mango cultivar specimen",
+    "description": "A distinct mango cultivar (Kensington Pride 2-10) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "KENSINGTON PRIDE 2-10"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "KESAR": {
+    "name": "Kesar",
+    "image": "/cultivars/kesar.jpg",
+    "imageAlt": "Photograph of Kesar mango cultivar specimen",
+    "description": "Known as the Queen of Mangoes from Gujarat, India. Intense saffron fragrance, bright orange pulp, and deeply sweet aromatic flavor.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "KESAR"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Queen of Mangoes",
+      "Saffron Aroma",
+      "Orange Flesh",
+      "Dessert Mango"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        450
+      ]
+    }
+  },
+  "LADY'S CHOICE": {
+    "name": "Lady'S Choice",
+    "image": "/cultivars/ladys-choice.jpg",
+    "imageAlt": "Photograph of Lady'S Choice mango cultivar specimen",
+    "description": "A distinct mango cultivar (Lady'S Choice) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "LADY'S CHOICE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "LANGRA BENARSI": {
+    "name": "Langra Benarsi",
+    "image": "/cultivars/langra-benarsi.jpg",
+    "imageAlt": "Photograph of Langra Benarsi mango cultivar specimen",
+    "description": "A distinct mango cultivar (Langra Benarsi) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "LANGRA BENARSI"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "LEMON ZEST X ATAULFO": {
+    "name": "Lemon Zest X Ataulfo",
+    "image": "/cultivars/lemon-zest-x-ataulfo.jpg",
+    "imageAlt": "Photograph of Lemon Zest X Ataulfo mango cultivar specimen",
+    "description": "A distinct mango cultivar (Lemon Zest X Ataulfo) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "LEMON ZEST X ATAULFO"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "LUCILE": {
+    "name": "Lucile",
+    "image": "/cultivars/lucile.jpg",
+    "imageAlt": "Photograph of Lucile mango cultivar specimen",
+    "description": "A distinct mango cultivar (Lucile) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "LUCILE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "MADOE": {
+    "name": "Madoe",
+    "image": "/cultivars/madoe.jpg",
+    "imageAlt": "Photograph of Madoe mango cultivar specimen",
+    "description": "A distinct mango cultivar (Madoe) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "MADOE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "MAMME": {
+    "name": "Mamme",
+    "image": "/cultivars/mamme.jpg",
+    "imageAlt": "Photograph of Mamme mango cultivar specimen",
+    "description": "A distinct mango cultivar (Mamme) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "MAMME"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "MESK": {
+    "name": "Mesk",
+    "image": "/cultivars/mesk.jpg",
+    "imageAlt": "Photograph of Mesk mango cultivar specimen",
+    "description": "A distinct mango cultivar (Mesk) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "MESK"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ONO": {
+    "name": "Ono",
+    "image": "/cultivars/ono.jpg",
+    "imageAlt": "Photograph of Ono mango cultivar specimen",
+    "description": "A distinct mango cultivar (Ono) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ONO"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ORANGE ESSENCE": {
+    "name": "Orange Essence",
+    "image": "/cultivars/orange-essence.jpg",
+    "imageAlt": "Photograph of Orange Essence mango cultivar specimen",
+    "description": "A distinct mango cultivar (Orange Essence) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ORANGE ESSENCE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PAHERI": {
+    "name": "Paheri",
+    "image": "/cultivars/paheri.jpg",
+    "imageAlt": "Photograph of Paheri mango cultivar specimen",
+    "description": "A distinct mango cultivar (Paheri) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PAHERI"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PALMER X CAMBODIANA": {
+    "name": "Palmer X Cambodiana",
+    "image": "/cultivars/palmer-x-cambodiana.jpg",
+    "imageAlt": "Photograph of Palmer X Cambodiana mango cultivar specimen",
+    "description": "A distinct mango cultivar (Palmer X Cambodiana) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PALMER X CAMBODIANA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PALMER X LANCETILLA": {
+    "name": "Palmer X Lancetilla",
+    "image": "/cultivars/palmer-x-lancetilla.jpg",
+    "imageAlt": "Photograph of Palmer X Lancetilla mango cultivar specimen",
+    "description": "A distinct mango cultivar (Palmer X Lancetilla) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PALMER X LANCETILLA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PARIS": {
+    "name": "Paris",
+    "image": "/cultivars/paris.jpg",
+    "imageAlt": "Photograph of Paris mango cultivar specimen",
+    "description": "A distinct mango cultivar (Paris) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PARIS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PASCUAL": {
+    "name": "Pascual",
+    "image": "/cultivars/pascual.jpg",
+    "imageAlt": "Photograph of Pascual mango cultivar specimen",
+    "description": "A distinct mango cultivar (Pascual) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PASCUAL"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PETTIGREW": {
+    "name": "Pettigrew",
+    "image": "/cultivars/pettigrew.jpg",
+    "imageAlt": "Photograph of Pettigrew mango cultivar specimen",
+    "description": "A distinct mango cultivar (Pettigrew) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PETTIGREW"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "PINEAPPLE PLEASURE": {
+    "name": "Pineapple Pleasure",
+    "image": "/cultivars/pineapple-pleasure.jpg",
+    "imageAlt": "Photograph of Pineapple Pleasure mango cultivar specimen",
+    "description": "A distinct mango cultivar (Pineapple Pleasure) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "PINEAPPLE PLEASURE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "RAPOZA": {
+    "name": "Rapoza",
+    "image": "/cultivars/rapoza.jpg",
+    "imageAlt": "Photograph of Rapoza mango cultivar specimen",
+    "description": "A distinct mango cultivar (Rapoza) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "RAPOZA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "RED ITAMARACA": {
+    "name": "Red Itamaraca",
+    "image": "/cultivars/red-itamaraca.jpg",
+    "imageAlt": "Photograph of Red Itamaraca mango cultivar specimen",
+    "description": "A distinct mango cultivar (Red Itamaraca) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "RED ITAMARACA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ROSIGOLD": {
+    "name": "Rosigold",
+    "image": "/cultivars/rosigold.jpg",
+    "imageAlt": "Photograph of Rosigold mango cultivar specimen",
+    "description": "A distinct mango cultivar (Rosigold) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ROSIGOLD"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "RUBY": {
+    "name": "Ruby",
+    "image": "/cultivars/ruby.jpg",
+    "imageAlt": "Photograph of Ruby mango cultivar specimen",
+    "description": "A distinct mango cultivar (Ruby) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "RUBY"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SABER": {
+    "name": "Saber",
+    "image": "/cultivars/saber.jpg",
+    "imageAlt": "Photograph of Saber mango cultivar specimen",
+    "description": "A distinct mango cultivar (Saber) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SABER"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SAIGON": {
+    "name": "Saigon",
+    "image": "/cultivars/saigon.jpg",
+    "imageAlt": "Photograph of Saigon mango cultivar specimen",
+    "description": "A distinct mango cultivar (Saigon) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SAIGON"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SANDERSHA": {
+    "name": "Sandersha",
+    "image": "/cultivars/sandersha.jpg",
+    "imageAlt": "Photograph of Sandersha mango cultivar specimen",
+    "description": "A distinct mango cultivar (Sandersha) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SANDERSHA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SEEDLING": {
+    "name": "Seedling",
+    "image": "/cultivars/seedling.jpg",
+    "imageAlt": "Photograph of Seedling mango cultivar specimen",
+    "description": "A distinct mango cultivar (Seedling) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SEEDLING"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SENSATION": {
+    "name": "Sensation",
+    "image": "/cultivars/sensation.jpg",
+    "imageAlt": "Photograph of Sensation mango cultivar specimen",
+    "description": "A distinct mango cultivar (Sensation) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SENSATION"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SOUTHERN BLUSH": {
+    "name": "Southern Blush",
+    "image": "/cultivars/southern-blush.jpg",
+    "imageAlt": "Photograph of Southern Blush mango cultivar specimen",
+    "description": "A distinct mango cultivar (Southern Blush) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SOUTHERN BLUSH"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "SUNRISE": {
+    "name": "Sunrise",
+    "image": "/cultivars/sunrise.jpg",
+    "imageAlt": "Photograph of Sunrise mango cultivar specimen",
+    "description": "Attractive yellow fruit with a bright red blush, firm fiberless flesh, and a pleasant mild sweetness.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SUNRISE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Early Season",
+      "Bright Blush",
+      "Mild Flavor",
+      "Fiberless"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        350,
+        550
+      ]
+    }
+  },
+  "SWEET TART": {
+    "name": "Sweet Tart",
+    "image": "/cultivars/sweet-tart.jpg",
+    "imageAlt": "Photograph of Sweet Tart mango cultivar specimen",
+    "description": "A distinct mango cultivar (Sweet Tart) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "SWEET TART"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "TOMMY ATKINS": {
+    "name": "Tommy Atkins",
+    "image": "/cultivars/tommy-atkins.jpg",
+    "imageAlt": "Photograph of Tommy Atkins mango cultivar specimen",
+    "description": "The standard commercial variety worldwide. Outstanding dark red and green skin color, long shelf life, firm flesh with medium fiber.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "TOMMY ATKINS"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Commercial Standard",
+      "Long Shelf Life",
+      "Bright Red Blush",
+      "Firm Flesh"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        450,
+        750
+      ]
+    }
+  },
+  "TOMMY ATKINS X BAPISTA": {
+    "name": "Tommy Atkins X Bapista",
+    "image": "/cultivars/tommy-atkins-x-bapista.jpg",
+    "imageAlt": "Photograph of Tommy Atkins X Bapista mango cultivar specimen",
+    "description": "A distinct mango cultivar (Tommy Atkins X Bapista) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "TOMMY ATKINS X BAPISTA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "TURPENTINE": {
+    "name": "Turpentine",
+    "image": "/cultivars/turpentine.jpg",
+    "imageAlt": "Photograph of Turpentine mango cultivar specimen",
+    "description": "A distinct mango cultivar (Turpentine) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "TURPENTINE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "VALENCIA PRIDE": {
+    "name": "Valencia Pride",
+    "image": "/cultivars/valencia-pride.jpg",
+    "imageAlt": "Photograph of Valencia Pride mango cultivar specimen",
+    "description": "A vigorous Florida tree producing very long, slender fruit with a stunning crimson blush, fiberless yellow flesh, and sweet, juicy taste.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "VALENCIA PRIDE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Long & Slender",
+      "Crimson Blush",
+      "Juicy & Sweet",
+      "Mid-Late Season"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        500,
+        850
+      ]
+    }
+  },
+  "VAN DYKE": {
+    "name": "Van Dyke",
+    "image": "/cultivars/van-dyke.jpg",
+    "imageAlt": "Photograph of Van Dyke mango cultivar specimen",
+    "description": "Medium-sized ovate fruit with bright yellow skin washed in brilliant red. Firm flesh with pleasant aroma and mild fiber.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "VAN DYKE"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Bright Red",
+      "Firm Texture",
+      "Aromatic",
+      "Mid-Season"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        300,
+        500
+      ]
+    }
+  },
+  "WEBBER": {
+    "name": "Webber",
+    "image": "/cultivars/webber.jpg",
+    "imageAlt": "Photograph of Webber mango cultivar specimen",
+    "description": "A distinct mango cultivar (Webber) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "WEBBER"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "YOUNG": {
+    "name": "Young",
+    "image": "/cultivars/young.jpg",
+    "imageAlt": "Photograph of Young mango cultivar specimen",
+    "description": "A distinct mango cultivar (Young) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "YOUNG"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  },
+  "ZEBDA": {
+    "name": "Zebda",
+    "image": "/cultivars/zebda.jpg",
+    "imageAlt": "Photograph of Zebda mango cultivar specimen",
+    "description": "A distinct mango cultivar (Zebda) cultivated for its characteristic fruit quality and regional adaptability.",
+    "metadata": [
+      {
+        "label": "Cultivar ID",
+        "value": "ZEBDA"
+      },
+      {
+        "label": "Catalog Category",
+        "value": "Mangifera indica"
+      }
+    ],
+    "traits": [
+      "Cultivar Sample",
+      "Verified Accession"
+    ],
+    "ranges": {
+      "Fruit weight": [
+        250,
+        800
+      ]
+    }
+  }
 }

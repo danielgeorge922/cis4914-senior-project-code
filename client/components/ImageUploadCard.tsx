@@ -13,6 +13,7 @@ type Props = {
   photos: Photo[];
   onAdd: (files: File[], kind: Photo["kind"]) => Promise<void>;
   onRemove: (photo: Photo) => void;
+  onSeeExample?: () => void;
 };
 
 export default function ImageUploadCard({
@@ -20,6 +21,7 @@ export default function ImageUploadCard({
   photos,
   onAdd,
   onRemove,
+  onSeeExample,
 }: Props) {
   const [dragging, setDragging] = useState(false);
   const depth = useRef(0);
@@ -28,12 +30,24 @@ export default function ImageUploadCard({
       aria-labelledby={category.kind + "-heading"}
       className="min-w-0 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6"
     >
-      <h3
-        id={category.kind + "-heading"}
-        className="text-lg font-semibold text-uf-blue"
-      >
-        {category.title}
-      </h3>
+      <div className="flex items-start justify-between gap-2">
+        <h3
+          id={category.kind + "-heading"}
+          className="text-lg font-semibold text-uf-blue"
+        >
+          {category.title}
+        </h3>
+        {onSeeExample && (
+          <button
+            type="button"
+            onClick={onSeeExample}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-uf-blue hover:bg-blue-100 transition-colors"
+          >
+            <span>See an Example</span>
+            <span aria-hidden="true">👁️</span>
+          </button>
+        )}
+      </div>
       <p className="mt-2 min-h-12 text-sm leading-6 text-gray-600">
         {category.description}
       </p>

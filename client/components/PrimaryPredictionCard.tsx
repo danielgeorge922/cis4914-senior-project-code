@@ -19,7 +19,7 @@ export default function PrimaryPredictionCard({
           width={240}
           height={240}
           priority
-          className="aspect-square w-40 rounded-2xl bg-white object-contain sm:w-52"
+          className="aspect-square w-40 rounded-2xl bg-white object-cover border border-gray-200 sm:w-52"
         />
         <div className="min-w-0 flex-1">
           <h2 className="text-4xl font-semibold tracking-tight text-uf-blue sm:text-5xl">
