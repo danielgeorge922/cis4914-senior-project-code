@@ -9,6 +9,9 @@ from tqdm import tqdm
 # Maximum dimension for faster CPU processing
 MAX_DIMENSION = 1200
 
+# Final image size
+NUM_PIXELS = 224
+
 def get_data_folder():
 	"""Opens a file explorer window to select the root dataset folder,
 	validates its structure, and lists the detected cultivars.
@@ -128,15 +131,15 @@ def preprocess_single_image(img_path, session=None):
 	white_bg = Image.new("RGBA", output_removed.size, (255, 255, 255, 255))
 	combined = Image.alpha_composite(white_bg, output_removed).convert("RGB")
 
-	# Resize to final 224x224. Preserve aspect ratio
+	# Resize. Preserve aspect ratio
 	final_img = letterbox_resize(
-	    combined, target_size=(224, 224), bg_color=(255, 255, 255)
+	    combined, target_size=(NUM_PIXELS, NUM_PIXELS), bg_color=(255, 255, 255)
 	)
 
 	return final_img
 
 
-def letterbox_resize(image, target_size=(224, 224), bg_color=(255, 255, 255)):
+def letterbox_resize(image, target_size=(NUM_PIXELS, NUM_PIXELS), bg_color=(255, 255, 255)):
 	"""Resizes an image to target_size while preserving its original aspect ratio,
 	padding the remaining area with the specified background color.
 	"""
