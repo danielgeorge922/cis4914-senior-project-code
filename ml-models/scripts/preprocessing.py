@@ -6,10 +6,6 @@ from PIL import Image
 from rembg import new_session, remove
 from tqdm import tqdm
 
-# Tailored thresholds account for texture differences:
-# Fruits have smooth surfaces (fewer edges), so they need a lower threshold.
-# Leaves have detailed veins (more edges), so they require a higher threshold.
-BLUR_THRESHOLDS = {"fruit": 15.0, "leaves": 40.0}
 # Maximum dimension for faster CPU processing
 MAX_DIMENSION = 1200
 
