@@ -7,24 +7,11 @@ import { useRouter } from "next/navigation";
 import ImageUploadCard from "./ImageUploadCard";
 import ExtraFeatures, { type Row } from "./ExtraFeatures";
 import ExampleModal from "./ExampleModal";
-
-const categories = [
-  {
-    kind: "exterior" as const,
-    title: "Exterior fruit view",
-    description: "Show the whole intact mango fruit, its skin color, and overall shape.",
-    tip: "Photograph against a clean, neutral surface in natural light.",
-  },
-  {
-    kind: "interior" as const,
-    title: "Interior (cut-open) view",
-    description: "Show the sliced fruit, exposing internal flesh color, fiber texture, and seed.",
-    tip: "Slice lengthwise along the cheek to display the internal stone and flesh.",
-  },
-];
+import { useLanguage } from "../lib/i18n";
 
 export default function MangoUploadForm() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [features, setFeatures] = useState<Row[]>([]);
   const [selectedModel, setSelectedModel] = useState("classifier");
@@ -32,6 +19,22 @@ export default function MangoUploadForm() {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(0);
   const urls = useRef(new Set<string>());
+
+  const categories = [
+    {
+      kind: "exterior" as const,
+      title: t("fruitTitle"),
+      description: t("fruitDesc"),
+      tip: t("fruitTip"),
+    },
+    {
+      kind: "interior" as const,
+      title: t("interiorTitle"),
+      description: t("interiorDesc"),
+      tip: t("interiorTip"),
+    },
+  ];
+
   useEffect(() => {
     const active = urls.current;
     return () => active.forEach((url) => URL.revokeObjectURL(url));
@@ -91,9 +94,9 @@ export default function MangoUploadForm() {
     <>
       <form className="mt-9 sm:mt-12" onSubmit={handleSubmit}>
         <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="text-xl font-semibold">Upload your photos</h2>
+          <h2 className="text-xl font-semibold">{t("uploadHeading")}</h2>
           <p className="text-sm text-gray-600">
-            At least one exterior or interior mango image
+            {t("uploadRequirement")}
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
@@ -114,10 +117,10 @@ export default function MangoUploadForm() {
             htmlFor="model-select"
             className="block text-base font-semibold text-uf-blue"
           >
-            Inference Architecture
+            {t("modelSelectLabel")}
           </label>
           <p className="mt-1 text-sm text-gray-600">
-            Choose which neural network classifier runs inference on your uploaded photographs.
+            {t("modelSelectDesc")}
           </p>
           <select
             id="model-select"
@@ -126,10 +129,10 @@ export default function MangoUploadForm() {
             className="mt-3 block w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-900 focus:border-uf-blue focus:bg-white focus:outline-none focus:ring-2 focus:ring-uf-blue"
           >
             <option value="classifier">
-              EfficientNet-B0 (78 Exterior Classes) — Recommended
+              {t("modelClassifier")}
             </option>
             <option value="resnet50">
-              ResNet-50 (78 Exterior Classes)
+              {t("modelResnet50")}
             </option>
           </select>
         </div>
@@ -143,17 +146,41 @@ export default function MangoUploadForm() {
             {error}
           </p>
         )}
+
+        <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50/60 p-4 text-xs text-gray-700">
+          <div className="flex items-center gap-2 font-semibold text-uf-blue">
+            <svg
+              className="h-4 w-4 shrink-0 text-uf-blue"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+              />
+            </svg>
+            <span>{t("privacyTitle")}</span>
+          </div>
+          <p className="mt-1.5 leading-relaxed text-gray-600">
+            {t("privacyBody")}
+          </p>
+        </div>
+
         <div className="mt-7 flex flex-col gap-5 border-t border-gray-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p aria-live="polite" className="text-sm font-medium">
               {pending
-                ? "Checking your images…"
+                ? t("checkingImages")
                 : photos.length
-                  ? `${photos.length} image${photos.length === 1 ? "" : "s"} selected`
-                  : "Add an image to get started."}
+                  ? `${photos.length} ${t("imagesSelected")}`
+                  : t("addImagesToStart")}
             </p>
             <p className="mt-1 text-xs leading-5 text-gray-500">
-              Images are sent to the identification service and not stored.
+              {t("privacyBadge")}
             </p>
           </div>
           <button
@@ -161,7 +188,7 @@ export default function MangoUploadForm() {
             disabled={!photos.length || pending > 0}
             className="cursor-pointer min-h-12 rounded-lg bg-uf-blue px-7 py-3 font-semibold text-white transition-colors hover:bg-uf-blue/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-uf-blue disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
           >
-            Identify mango{" "}
+            {t("identifyButton")}{" "}
             <span aria-hidden="true" className="ml-3">
               →
             </span>

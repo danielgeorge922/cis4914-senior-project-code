@@ -1,6 +1,11 @@
+"use client";
+
 import MangoUploadForm from "../components/MangoUploadForm";
+import { useLanguage } from "../lib/i18n";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <main
       id="main-content"
@@ -9,18 +14,16 @@ export default function Home() {
     >
       <div className="max-w-3xl">
         <p className="mb-3 text-sm font-semibold tracking-widest text-uf-blue uppercase">
-          Mango identification
+          {t("heroBadge")}
         </p>
         <h1 className="text-3xl leading-tight font-semibold tracking-tight text-uf-blue sm:text-4xl lg:text-5xl">
-          Get to know your mango.
+          {t("heroTitle")}
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-700 sm:text-lg">
-          Upload photos of an intact exterior mango fruit, a cut-open interior view,
-          or both to help identify its cultivar and learn about its characteristics.
+          {t("heroDesc")}
         </p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-600">
-          Identification is an estimate, not a guarantee. Clear photos from
-          multiple angles provide more useful visual details.
+          {t("heroNotice")}
         </p>
       </div>
       <MangoUploadForm />

@@ -1,16 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import type { Prediction } from "../lib/types";
 import PredictionScore from "./PredictionScore";
+import { useLanguage } from "../lib/i18n";
 
 export default function PrimaryPredictionCard({
   prediction,
 }: {
   prediction: Prediction;
 }) {
+  const { t } = useLanguage();
+
   return (
     <article className="rounded-3xl bg-gray-50 p-6 transition-colors hover:bg-gray-100 sm:p-8">
       <p className="mb-6 text-sm font-semibold tracking-widest text-uf-blue uppercase">
-        Most Likely
+        {t("mostLikely")}
       </p>
       <div className="flex flex-col items-start gap-7 lg:flex-row lg:items-center">
         <Image
@@ -41,7 +46,7 @@ export default function PrimaryPredictionCard({
       </div>
       <details className="mt-7 border-t border-gray-200 pt-4">
         <summary className="cursor-pointer font-medium text-uf-blue">
-          View identifying traits
+          {t("viewTraits")}
         </summary>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-600">
           {prediction.traits.map((trait) => (

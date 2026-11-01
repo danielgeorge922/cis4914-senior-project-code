@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect } from "react";
+import { useLanguage } from "../lib/i18n";
 
 type Props = {
   isOpen: boolean;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export default function ExampleModal({ isOpen, onClose, viewType }: Props) {
+  const { t } = useLanguage();
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
@@ -42,16 +44,16 @@ export default function ExampleModal({ isOpen, onClose, viewType }: Props) {
         <div className="flex items-start justify-between">
           <div>
             <span className="text-xs font-semibold tracking-wider text-uf-orange uppercase">
-              Photo Guide
+              {t("photoGuide")}
             </span>
             <h3 id="modal-title" className="text-xl font-bold text-uf-blue">
-              {isExterior ? "Exterior View (Whole Fruit)" : "Interior View (Cut Fruit)"}
+              {isExterior ? t("modalExteriorTitle") : t("modalInteriorTitle")}
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label={t("closeModal")}
             className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
           >
             <svg
@@ -67,9 +69,7 @@ export default function ExampleModal({ isOpen, onClose, viewType }: Props) {
         </div>
 
         <p className="mt-2 text-sm leading-relaxed text-gray-600">
-          {isExterior
-            ? "Place the whole, intact mango against a neutral surface with natural, indirect lighting. Capture the overall fruit silhouette and skin coloration."
-            : "Slice the fruit lengthwise through the cheek to show the flesh coloration, fiber density, and stone/seed shape."}
+          {isExterior ? t("modalExteriorDesc") : t("modalInteriorDesc")}
         </p>
 
         <div className="relative mt-4 aspect-4/3 w-full overflow-hidden rounded-xl bg-gray-100 border border-gray-200">
@@ -84,13 +84,11 @@ export default function ExampleModal({ isOpen, onClose, viewType }: Props) {
         <ul className="mt-4 space-y-1.5 text-xs text-gray-600">
           <li className="flex items-center gap-1.5">
             <span className="text-uf-blue font-bold">✓</span>
-            {isExterior
-              ? "Ensure the entire fruit is in the frame with good focus"
-              : "Expose clean internal flesh without heavy shadows"}
+            {isExterior ? t("modalTip1Exterior") : t("modalTip1Interior")}
           </li>
           <li className="flex items-center gap-1.5">
             <span className="text-uf-blue font-bold">✓</span>
-            Avoid cluttered backgrounds or fingers covering the fruit
+            {t("modalTip2")}
           </li>
         </ul>
 
@@ -99,7 +97,7 @@ export default function ExampleModal({ isOpen, onClose, viewType }: Props) {
           onClick={onClose}
           className="mt-5 w-full rounded-xl bg-uf-blue py-3 text-sm font-semibold text-white shadow-sm hover:bg-uf-blue/90 transition-colors"
         >
-          Got it
+          {t("gotIt")}
         </button>
       </div>
     </div>

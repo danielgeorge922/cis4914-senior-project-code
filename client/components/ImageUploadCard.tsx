@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Photo } from "../lib/types";
+import { useLanguage } from "../lib/i18n";
 
 type Props = {
   category: {
@@ -23,6 +24,7 @@ export default function ImageUploadCard({
   onRemove,
   onSeeExample,
 }: Props) {
+  const { t } = useLanguage();
   const [dragging, setDragging] = useState(false);
   const depth = useRef(0);
   return (
@@ -43,7 +45,7 @@ export default function ImageUploadCard({
             onClick={onSeeExample}
             className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-uf-blue hover:bg-blue-100 transition-colors"
           >
-            <span>See an Example</span>
+            <span>{t("seeExample")}</span>
             <span aria-hidden="true">👁️</span>
           </button>
         )}
@@ -99,13 +101,13 @@ export default function ImageUploadCard({
           <path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5" />
         </svg>
         <span className="font-semibold text-uf-blue">
-          {dragging ? "Drop images to add them" : "Choose images"}
+          {dragging ? t("chooseImages") : t("chooseImages")}
         </span>
         <span className="mt-1 text-sm text-gray-600">
-          {dragging ? "Release to upload your photos" : "or drag and drop here"}
+          {dragging ? t("dragDrop") : t("dragDrop")}
         </span>
         <span className="mt-3 text-xs text-gray-500">
-          JPG, PNG, WebP · up to 10 MB each
+          {t("fileLimits")}
         </span>
       </label>
       <p className="mt-4 text-xs leading-5 text-gray-600">{category.tip}</p>
