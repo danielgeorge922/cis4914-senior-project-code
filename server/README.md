@@ -2,21 +2,37 @@
 
 FastAPI server that takes photos of one tree, runs each through the fruit or leaf model on Triton, averages the scores, and returns a ranked list of cultivars. It is stateless: to refine a result, the app re-sends every photo.
 
-## Run
+## Setup and Run
 
-```powershell
+Install dependencies and create the virtual environment using [uv](https://docs.astral.sh/uv/):
+
+```bash
 cd server
-py -3.14 -m venv .venv
-.venv\Scripts\pip install --only-binary=:all: -r requirements.txt
+uv sync
 ```
 
-**Without Triton** (random but repeatable scores), in PowerShell:
+### Run Locally
 
-```powershell
-$env:MOCK_INFERENCE="true"; .venv\Scripts\uvicorn app.main:app --port 8080
+**Without Triton / Mock Mode** (instant local development with deterministic scores):
+
+- On macOS / Linux:
+  ```bash
+  MOCK_INFERENCE="true" uv run uvicorn app.main:app --port 8080
+  ```
+- On Windows (PowerShell):
+  ```powershell
+  $env:MOCK_INFERENCE="true"; uv run uvicorn app.main:app --port 8080
+  ```
+
+**With Local ONNX Runtime** (uses models in `model_repository/` directly):
+```bash
+uv run uvicorn app.main:app --port 8080
 ```
 
-**With Triton** (needs Docker and exported models in `model_repository/`, see below): `docker compose up --build`
+**With Triton via Docker**:
+```bash
+docker compose up --build
+```
 
 ## API
 
