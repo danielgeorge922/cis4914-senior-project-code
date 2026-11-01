@@ -12,6 +12,11 @@ from app.services.preprocess import load_image, to_tensor
 
 router = APIRouter(prefix="/api/v1")
 
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB limit per photo
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp"}
+ALLOWED_MODELS = {"classifier", "resnet50", "retrieval"}
+MAX_FILES = 10
+
 MODEL_DISPLAY_NAMES = {
     "classifier": "EfficientNet-B0 (78 Classes)",
     "resnet50": "ResNet-50 (78 Classes)",
@@ -30,10 +35,59 @@ async def predict(
     state = request.app.state
     settings = state.settings
 
-    images = [await upload.read() for upload in files]
-    tensors = await run_in_threadpool(
-        lambda: [to_tensor(state.cropper.crop(load_image(data)), settings) for data in images]
-    )
+    # 1. Validate file counts and kinds alignment
+    if not files:
+        raise HTTPException(400, "At least one photo must be provided.")
+    if len(files) > MAX_FILES:
+        raise HTTPException(400, f"Cannot upload more than {MAX_FILES} photos per submission.")
+    if len(files) != len(kinds):
+        raise HTTPException(400, "Number of photos must match number of kinds specified.")
+
+    # 2. Validate model architecture selection
+    if model not in ALLOWED_MODELS:
+        raise HTTPException(
+            400, f"Invalid model '{model}'. Allowed models: {', '.join(sorted(ALLOWED_MODELS))}."
+        )
+
+    # 3. Validate and parse features JSON
+    try:
+        raw_features = json.loads(features)
+        if not isinstance(raw_features, dict):
+            raise ValueError()
+        measurements = {name: float(value) for name, value in raw_features.items()}
+    except (json.JSONDecodeError, ValueError, TypeError):
+        raise HTTPException(400, "Features must be a valid JSON object with numeric values.")
+
+    # 4. Read and validate file sizes and MIME types
+    images: list[bytes] = []
+    for upload in files:
+        if upload.content_type and upload.content_type not in ALLOWED_MIME_TYPES:
+            raise HTTPException(
+                400,
+                f"Unsupported file type '{upload.content_type}' for {upload.filename}. Allowed types: JPG, PNG, WebP.",
+            )
+
+        content = await upload.read(MAX_FILE_SIZE + 1)
+        if len(content) > MAX_FILE_SIZE:
+            raise HTTPException(
+                400, f"File '{upload.filename}' exceeds maximum allowed size of 10 MB."
+            )
+        images.append(content)
+
+    # 5. Decode images and generate normalized tensors
+    def process_images() -> list[np.ndarray]:
+        tensors = []
+        for upload, data in zip(files, images):
+            try:
+                img = load_image(data)
+            except Exception as error:
+                raise HTTPException(
+                    400, f"File '{upload.filename}' is corrupted or not a valid image."
+                ) from error
+            tensors.append(to_tensor(state.cropper.crop(img), settings))
+        return tensors
+
+    tensors = await run_in_threadpool(process_images)
 
     # Route each photo to the model for its kind (one call per model).
     batches: dict[Kind, list[np.ndarray]] = defaultdict(list)
@@ -49,7 +103,6 @@ async def predict(
         raise HTTPException(503, "The identification service is unavailable. Try again shortly.") from error
 
     scores = combine(softmax(np.concatenate(logits)))
-    measurements = {name: float(value) for name, value in json.loads(features).items()}
     ranges = [state.catalog.ranges(label) for label in state.labels]
     scores = apply_ranges(scores, ranges, measurements, settings.range_penalty)
     predictions = [
