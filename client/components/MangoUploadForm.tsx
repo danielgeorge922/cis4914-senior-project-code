@@ -2,9 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Photo } from "../lib/types";
+import { startPrediction } from "../lib/api";
 import { useRouter } from "next/navigation";
 import ImageUploadCard from "./ImageUploadCard";
-import ExtraFeatures from "./ExtraFeatures";
+import ExtraFeatures, { type Row } from "./ExtraFeatures";
 
 const categories = [
   {
@@ -24,6 +25,7 @@ const categories = [
 export default function MangoUploadForm() {
   const router = useRouter();
   const [photos, setPhotos] = useState<Photo[]>([]);
+  const [features, setFeatures] = useState<Row[]>([]);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(0);
   const urls = useRef(new Set<string>());
@@ -52,7 +54,13 @@ export default function MangoUploadForm() {
         image.src = url;
         await image.decode();
         urls.current.add(url);
-        accepted.push({ id: crypto.randomUUID(), url, name: file.name, kind });
+        accepted.push({
+          id: crypto.randomUUID(),
+          url,
+          name: file.name,
+          kind,
+          file,
+        });
       } catch {
         URL.revokeObjectURL(url);
         errors.push(`${file.name} could not be opened. Try another image.`);
@@ -71,7 +79,9 @@ export default function MangoUploadForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (photos.length && !pending) router.push("/processing");
+    if (!photos.length || pending) return;
+    startPrediction(photos, features);
+    router.push("/processing");
   }
 
   return (
@@ -93,7 +103,7 @@ export default function MangoUploadForm() {
           />
         ))}
       </div>
-      <ExtraFeatures />
+      <ExtraFeatures rows={features} setRows={setFeatures} />
       {error && (
         <p
           role="alert"
@@ -112,7 +122,7 @@ export default function MangoUploadForm() {
                 : "Add an image to get started."}
           </p>
           <p className="mt-1 text-xs leading-5 text-gray-500">
-            Preview only for now. Images stay in your browser.
+            Images are sent to the identification service and not stored.
           </p>
         </div>
         <button

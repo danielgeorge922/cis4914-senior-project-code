@@ -1,5 +1,29 @@
-# Mango Variety Identification
+# Mango cultivar identification
 
-This project is building an end-to-end mango variety identification system. The `client/` directory contains the Next.js web interface, while `server/` is reserved for the prediction API and application backend.
+Upload photos of a mango tree's fruit or leaves and get the 10 most likely cultivars.
 
-The `ml-models/` directory contains the machine-learning work: data ingestion, cleaning, manifests, experiments, training, evaluation, and exported model artifacts. The project combines a Hugging Face mango dataset with UF SharePoint mango images, preserving raw data outside Git and generating reproducible transformed datasets for transfer-learning image classifiers.
+| Folder | What it is |
+|---|---|
+| `client/` | Next.js web app ([client/README.md](client/README.md)) |
+| `server/` | FastAPI backend that runs the models on Triton ([server/README.md](server/README.md)) |
+| `ml-models/` | Model training and experiments ([ml-models/README.md](ml-models/README.md)) |
+
+## Run locally
+
+Until trained models exist, the backend runs in mock mode with random but repeatable scores.
+
+**Backend**, in PowerShell (first time: create the venv and install, see `server/README.md`):
+
+```powershell
+cd server
+$env:MOCK_INFERENCE="true"; .venv\Scripts\uvicorn app.main:app --port 8080
+```
+
+**Frontend**, in a second terminal (first time: `npm ci`):
+
+```powershell
+cd client
+npm run dev
+```
+
+Open http://localhost:3000. API docs are at http://localhost:8080/docs.
