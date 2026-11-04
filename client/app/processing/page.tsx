@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getPendingPrediction } from "../../lib/api";
 import { MOCK_PROCESSING_MS } from "../../lib/const";
+import { useLanguage } from "../../lib/i18n";
 import styles from "./processing.module.css";
 
 export default function ProcessingPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function ProcessingPage() {
         className="mx-auto flex w-full max-w-2xl flex-col items-center px-5 py-14 text-center sm:py-20"
       >
         <h1 className="text-3xl font-semibold tracking-tight text-uf-blue">
-          We couldn&apos;t identify your mango
+          {t("processingErrorTitle")}
         </h1>
         <p role="alert" className="mt-4 max-w-md text-gray-600">
           {error}
@@ -58,7 +60,7 @@ export default function ProcessingPage() {
           href="/"
           className="mt-7 inline-flex min-h-12 items-center rounded-lg bg-uf-blue px-6 font-semibold text-white hover:bg-uf-blue/90"
         >
-          Back to upload
+          {t("backToUpload")}
         </Link>
       </main>
     );
@@ -70,7 +72,7 @@ export default function ProcessingPage() {
       className="mx-auto flex w-full max-w-2xl flex-col items-center px-5 py-14 text-center sm:py-20"
     >
       <span className="rounded-full bg-blue-50 px-4 py-2 text-xs font-semibold text-uf-blue">
-        Preparing your results
+        {t("preparingResults")}
       </span>
       <svg
         viewBox="0 0 180 180"
@@ -105,17 +107,14 @@ export default function ProcessingPage() {
         <path d="M28 162h115" stroke="#e5e7eb" strokeWidth="3" />
       </svg>
       <h1 className="text-3xl font-semibold tracking-tight text-uf-blue sm:text-4xl">
-        Hollup, we working on
-        <br />
-        them results, twin.
+        {t("processingTitle")}
       </h1>
       <p className="mt-4 max-w-md leading-relaxed text-gray-600">
-        Our little mango is on the move. Your possible matches are coming right
-        up.
+        {t("processingDesc")}
       </p>
       <div className="mt-8 w-full max-w-sm">
         <div className="mb-2 flex justify-between text-sm text-gray-600">
-          <span>Progress</span>
+          <span>{t("progress")}</span>
           <span>{progress}%</span>
         </div>
         <div
@@ -136,7 +135,7 @@ export default function ProcessingPage() {
         href="/"
         className="mt-7 inline-flex min-h-11 items-center text-sm text-uf-blue underline underline-offset-4"
       >
-        Cancel and return to upload
+        {t("cancelReturn")}
       </Link>
     </main>
   );

@@ -1,7 +1,5 @@
 .env
 .env.*
 !.env.example
-.venv
-uv*
-.python-version
-pyproject.toml
+.venv/
+.DS_Store

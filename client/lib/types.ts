@@ -2,8 +2,14 @@ export type Photo = {
   id: string;
   name: string;
   url: string;
-  kind: "fruit" | "leaf";
+  kind: "exterior" | "interior" | "fruit" | "leaf";
   file: File;
+};
+
+export type SubmittedPhoto = {
+  name: string;
+  kind: "exterior" | "interior" | "fruit" | "leaf";
+  dataUrl: string;
 };
 
 export type Prediction = {
@@ -20,5 +26,6 @@ export type Prediction = {
 
 export type PredictResponse = {
   demo: boolean;
+  modelName?: string;
   predictions: Prediction[];
 };

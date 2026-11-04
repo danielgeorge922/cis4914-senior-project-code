@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Photo } from "../lib/types";
+import { useLanguage } from "../lib/i18n";
 
 type Props = {
   category: {
@@ -13,6 +14,7 @@ type Props = {
   photos: Photo[];
   onAdd: (files: File[], kind: Photo["kind"]) => Promise<void>;
   onRemove: (photo: Photo) => void;
+  onSeeExample?: () => void;
 };
 
 export default function ImageUploadCard({
@@ -20,7 +22,9 @@ export default function ImageUploadCard({
   photos,
   onAdd,
   onRemove,
+  onSeeExample,
 }: Props) {
+  const { t } = useLanguage();
   const [dragging, setDragging] = useState(false);
   const depth = useRef(0);
   return (
@@ -28,12 +32,24 @@ export default function ImageUploadCard({
       aria-labelledby={category.kind + "-heading"}
       className="min-w-0 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6"
     >
-      <h3
-        id={category.kind + "-heading"}
-        className="text-lg font-semibold text-uf-blue"
-      >
-        {category.title}
-      </h3>
+      <div className="flex items-start justify-between gap-2">
+        <h3
+          id={category.kind + "-heading"}
+          className="text-lg font-semibold text-uf-blue"
+        >
+          {category.title}
+        </h3>
+        {onSeeExample && (
+          <button
+            type="button"
+            onClick={onSeeExample}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-uf-blue hover:bg-blue-100 transition-colors"
+          >
+            <span>{t("seeExample")}</span>
+            <span aria-hidden="true">👁️</span>
+          </button>
+        )}
+      </div>
       <p className="mt-2 min-h-12 text-sm leading-6 text-gray-600">
         {category.description}
       </p>
@@ -85,13 +101,13 @@ export default function ImageUploadCard({
           <path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5" />
         </svg>
         <span className="font-semibold text-uf-blue">
-          {dragging ? "Drop images to add them" : "Choose images"}
+          {dragging ? t("chooseImages") : t("chooseImages")}
         </span>
         <span className="mt-1 text-sm text-gray-600">
-          {dragging ? "Release to upload your photos" : "or drag and drop here"}
+          {dragging ? t("dragDrop") : t("dragDrop")}
         </span>
         <span className="mt-3 text-xs text-gray-500">
-          JPG, PNG, WebP · up to 10 MB each
+          {t("fileLimits")}
         </span>
       </label>
       <p className="mt-4 text-xs leading-5 text-gray-600">{category.tip}</p>

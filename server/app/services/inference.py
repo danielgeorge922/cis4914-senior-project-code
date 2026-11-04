@@ -64,18 +64,28 @@ class TritonClassifier:
 
 
 class OnnxClassifier:
-    """Runs the same model.onnx from model_repository directly, for when Triton isn't running."""
+    """Runs model.onnx from model_repository directly via onnxruntime."""
 
     def __init__(self, settings: Settings):
         import onnxruntime
 
         self.settings = settings
-        path = settings.model_repository / settings.model / "1" / "model.onnx"
-        self.session = onnxruntime.InferenceSession(str(path))
+        self.onnxruntime = onnxruntime
+        self.sessions: dict[str, onnxruntime.InferenceSession] = {}
+        self.get_session(settings.model)
 
-    async def infer(self, kind: Kind, batch: np.ndarray) -> np.ndarray:
+    def get_session(self, model_name: str):
+        if model_name not in self.sessions:
+            path = self.settings.model_repository / model_name / "1" / "model.onnx"
+            if not path.exists():
+                path = self.settings.model_repository / self.settings.model / "1" / "model.onnx"
+            self.sessions[model_name] = self.onnxruntime.InferenceSession(str(path))
+        return self.sessions[model_name]
+
+    async def infer(self, kind: Kind, batch: np.ndarray, model_name: str = "classifier") -> np.ndarray:
+        session = self.get_session(model_name)
         tensor = np.ascontiguousarray(batch, dtype=np.float32)
-        return self.session.run([self.settings.model_output], {self.settings.model_input: tensor})[0]
+        return session.run([self.settings.model_output], {self.settings.model_input: tensor})[0]
 
     async def aclose(self) -> None:
         pass
