@@ -1,222 +1,291 @@
 {
   "ANGIE": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "shape": "oblong",
+    "size": "medium, 400-500 g (about 14 oz)",
+    "skin_color": "yellow to yellow-orange at maturity",
+    "blush": "pinkish to orange blush, mainly on sun-exposed shoulders",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "yellow-orange",
+    "notes": "Matched 'Angie'. Shape comes only from a Top Tropicals listing ('oblong and saffron yellow with Indian orange blush on the sun-exposed shoulders'), read in a search snippet because the page refused direct fetch. UF/IFAS gives the yellow peel, pinkish-orange blush and yellow-orange pulp. Wikipedia gives yellow to orange and about 400 g. A Louie's Nursery snippet calls the blush only occasional.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/angie/",
+      "https://en.wikipedia.org/wiki/Angie_(mango)",
+      "https://toptropicals.com/store/item/5350.htm"
+    ],
+    "verified": false
   },
   "BENETT ALPHONSO": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
+    "shape": "ovate-oblique to ovate-cordate, very plump",
+    "size": "small-medium, 7-12 oz, about 3-3.25 in long",
+    "skin_color": "yellow-green to yellow-orange, few light yellow dots, thick skin",
     "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "beak": "no beak, apex broadly pointed",
+    "flesh_color": "deep orange, fiberless, firm",
+    "notes": "Matched 'Bennett' (Douglas Bennett's Alphonse) in Popenoe's Manual of Tropical and Subtropical Fruits (1920). Popenoe does not mention a blush. No modern second source found.",
+    "sources": [
+      "https://growables.org/information/TropicalFruit/MangoPopenoe11.htm",
+      "https://www.ars-grin.gov/npgs/pi_books/scans/10/pi010_197.pdf"
+    ],
+    "verified": false
   },
   "BULLOCK'S HEART": {
     "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "size": "large, 10-15 cm",
+    "skin_color": "orange",
+    "blush": "red blush",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "orange, fiberless",
+    "notes": "Matched 'Mango - Bullocks Heart' (Mangifera indica), found only on Daley's Fruit (Australian nursery). The skin and flesh colors come from the site's filter tags, and its photo is marked 'Not Exact variety', so treat these traits with low confidence. Most search results for this name are about Annona reticulata (custard apple), which is a different fruit.",
+    "sources": [
+      "https://www.daleysfruit.com.au/buy/mango-bullocks-heart-grafted-fruit-trees-mangifera-indica.htm"
+    ],
+    "verified": false
   },
   "CAMBODIANA": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
+    "shape": "oblong to oblong-ovate, flattened sides (long)",
+    "size": "small-medium, 8-10 oz, 3.75-4.5 in long",
+    "skin_color": "yellow-green to deep yellow, almost no dots, very thin skin",
     "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "beak": "no beak, pointed apex with small nak point about 0.5 in above tip",
+    "flesh_color": "deep yellow, fiberless, very juicy",
+    "notes": "Matched 'Cambodiana', also called the Saigon or Chinese mango (a polyembryonic Indochinese race). The description is from Popenoe (1920), which mentions no blush. An old variety list gives 'color yellow; shape long'.",
+    "sources": [
+      "https://growables.org/information/TropicalFruit/MangoPopenoe11.htm",
+      "https://www.ars-grin.gov/npgs/pi_books/scans/immigrants/119_013.pdf"
+    ],
+    "verified": false
   },
   "CARABAO": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
+    "shape": "kidney-shaped, short to elongated",
+    "size": "small-medium, 270-440 g, about 12.5 cm long x 8.5 cm wide",
+    "skin_color": "greenish to bright yellow with a few greenish dots",
     "blush": null,
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "lemon yellow / rich yellow, very low fiber",
+    "notes": "Matched 'Carabao' (Philippine mango). UF/IFAS and Wikipedia agree on yellow skin, but neither mentions a blush. Shape comes only from Wikipedia.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/carabao/",
+      "https://en.wikipedia.org/wiki/Carabao_(mango)"
+    ],
+    "verified": false
   },
   "CARRIE": {
     "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "size": "small to medium, 280-450 g (a pound or less)",
+    "skin_color": "green to yellow-orange at maturity, small white dots",
+    "blush": "no red blush",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "lemon yellow to orange, fiberless",
+    "notes": "Matched 'Carrie'. UF/IFAS, Wikipedia, Fairchild and Louie's Nursery agree on green to yellow skin; UF/IFAS extends the range to yellow-orange. Wikipedia and Louie's both say it does not develop a red blush. No source described the fruit's shape.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/carrie/",
+      "https://en.wikipedia.org/wiki/Carrie_(mango)",
+      "https://orders.fairchildgarden.org/products/mangifera-indica-carrie",
+      "https://www.louiesnursery.com/plants/tropical-fruit-trees/mango-trees/carrie-mango/"
+    ],
+    "verified": false
   },
   "DUNCAN": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "shape": "oblong, uniform",
+    "size": "medium-large, 510-623 g (slightly over 1 lb)",
+    "skin_color": "yellow to golden-yellow",
+    "blush": "none",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "amber yellow to orange, fiberless",
+    "notes": "Matched 'Duncan'. Sources conflict. UF/IFAS says the peel is yellow 'without a blush', and Wikipedia says oblong and yellow. Sow Exotic (a nursery) says 'oval... sometimes blushed with light red'.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/duncan/",
+      "https://en.wikipedia.org/wiki/Duncan_(mango)",
+      "https://sowexotic.com/products/mango-duncan-mangifera-indica"
+    ],
+    "verified": false
   },
   "EDWARD": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "shape": "oval to oblong, bumpy surface",
+    "size": "medium-large, 450-620 g (16-22 oz)",
+    "skin_color": "bright yellow / golden yellow with small yellow or white dots",
+    "blush": "pink to reddish blush, on sun-exposed side",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "deep yellow to orange, fiberless",
+    "notes": "Matched 'Edward'. UF/IFAS, Wikipedia and Everglades Farm agree on yellow skin with a pink or reddish blush. Wikipedia gives 'oval/oblong', and a Specialty Produce snippet also says oval to oblong (that page refused direct fetch).",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/edward/",
+      "https://en.wikipedia.org/wiki/Edward_(mango)",
+      "https://everglades.farm/products/edward-mango-tree-grafted-3-gal-container-from-florida",
+      "https://specialtyproduce.com/produce/mangoes/edward_24815.php"
+    ],
+    "verified": true
   },
   "GLENN": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "oval to oblong, rounded base, pointed apex",
+    "size": "medium, 300-620 g",
+    "skin_color": "bright yellow with many small yellow and white dots",
+    "blush": "orange-red blush on 25-50% of the fruit (sun-exposed side)",
+    "beak": "no beak",
+    "flesh_color": "deep yellow, fiberless",
+    "notes": "Matched 'Glenn'. UF/IFAS and Wikipedia agree on yellow skin with an orange-red blush. Shape is from Wikipedia, and a Louie's Nursery snippet ('yellow oval fruit with a scarlet blush') supports it. Wikipedia says the apex 'lacks a beak'.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/glenn/",
+      "https://en.wikipedia.org/wiki/Glenn_(mango)",
+      "https://louiesnursery.com/?p=10002"
+    ],
+    "verified": true
   },
   "GRAHAM": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "oval, rounded apex",
+    "size": "large, 567-822 g",
+    "skin_color": "greenish-yellow to bright yellow, bumpy and undulating skin",
+    "blush": "slight pink blush",
+    "beak": "sometimes a small lateral beak",
+    "flesh_color": "deep orange, fiberless",
+    "notes": "Matched 'Graham' (Trinidad seedling of Julie). UF/IFAS and Wikipedia agree on yellow skin. The slight pink blush comes from UF only. Shape and beak come from Wikipedia only.",
+    "sources": [
+      "http://mango.ifas.ufl.edu/research/phenology/graham/",
+      "https://en.wikipedia.org/wiki/Graham_(mango)"
+    ],
+    "verified": false
   },
   "HINDI BESSENARA": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
+    "shape": "curved, hook-shaped",
+    "size": "small-medium, 250-300 g",
+    "skin_color": "light green with an orange overlay",
     "blush": null,
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "deep yellow to orange, little fiber",
+    "notes": "Matched UF/IFAS 'Hindi Bessenara' (Egyptian cultivar). The hook shape comes from a Google Arts & Culture page that spells it 'Hindi sennara'. UF says the peel has an orange overlay but does not call it a blush.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/hindi-bessenara/",
+      "https://artsandculture.google.com/story/_gXxPJjyyTOtYw"
+    ],
+    "verified": false
   },
   "KENSINGTON PRIDE": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "ovate, rounded apex",
+    "size": "medium, 350-750 g (about 500 g average)",
+    "skin_color": "yellow at maturity",
+    "blush": "orange-red to red blush",
+    "beak": "generally no beak",
+    "flesh_color": "orange-yellow, little to moderate fiber",
+    "notes": "Also known as Bowen mango (Australia). Skin and blush agree between UF/IFAS and Wikipedia. The shape is confirmed by only one fetched source (Wikipedia).",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/kensington-pride/",
+      "https://en.wikipedia.org/wiki/Kensington_Pride"
+    ],
+    "verified": false
   },
   "MAHA CHANOK": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "shape": "very elongated and curved",
+    "size": "small-medium, 250-410 g",
+    "skin_color": "yellowish to yellow-orange when ripe",
+    "blush": "pink to pinkish-red blush",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "orange-yellow, fiberless",
+    "notes": "Matched 'Mahachanok' (Thai cultivar, also called Maha Chinook). Skin and blush agree between UF/IFAS and Wikipedia. The shape comes from Wikipedia only.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/mahachanok/",
+      "https://en.wikipedia.org/wiki/Mahachanok_(mango)"
+    ],
+    "verified": false
   },
   "MESK": {
     "shape": null,
-    "size": null,
+    "size": "small, about 275 g",
     "skin_color": null,
     "blush": null,
     "beak": null,
     "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "notes": "Matched 'Mesk' (Egyptian cultivar). The only sources are nursery pages, and they conflict. mangoplant.com says it is green to golden yellow-green, sometimes yellow with a red blush. everglades.farm says it is small and oval and turns purple to red. Because of this, skin and blush are left null. mangoplant also says a red Florida fruit sold as 'USDA/Florida Mesk' is a different mango. Neither page gives a flesh color.",
+    "sources": [
+      "https://www.mangoplant.com/products/mesk",
+      "https://everglades.farm/products/mesk-mango-tree-grafted"
+    ],
+    "verified": false
   },
   "ROSIGOLD": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "oblong, flattened base, bluntly pointed apex",
+    "size": "small-medium, about 400 g (under 1 lb)",
+    "skin_color": "lemon-yellow to yellow-orange, smooth, numerous white dots",
+    "blush": "pastel pink-red to orange-red blush",
+    "beak": "no beak",
+    "flesh_color": "deep orange to orange-yellow, fiberless",
+    "notes": "Florida cultivar (possibly a Saigon-type seedling; a 2005 pedigree analysis pointed to Ono). Proc. Fla. State Hort. Soc. 130:4-5 (2017) and Wikipedia agree on shape, skin and blush.",
+    "sources": [
+      "https://www.growables.com/information/TropicalFruit/documents/MangoRosiegold.pdf",
+      "https://en.wikipedia.org/wiki/Rosigold"
+    ],
+    "verified": true
   },
   "RUBY": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
+    "shape": "oblong",
+    "size": "small, 170-300 g (under 1 lb)",
+    "skin_color": "yellow-orange ground color, numerous yellow dots",
+    "blush": "dark red to crimson blush covering most of the fruit",
     "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "flesh_color": "orange-yellow, minimal fiber",
+    "notes": "Florida cultivar. Blush agrees between UF/IFAS and Wikipedia. The shape comes from Wikipedia only.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/ruby/",
+      "https://en.wikipedia.org/wiki/Ruby_(mango)"
+    ],
+    "verified": false
   },
   "SAIGON": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "oval to ovate, pointed apex",
+    "size": "small, 250-350 g",
+    "skin_color": "greenish-yellow to bright yellow",
+    "blush": "rarely a light pink blush",
+    "beak": "often a small lateral beak",
+    "flesh_color": "pale yellow, fiberless",
+    "notes": "Vietnamese polyembryonic cultivar grown in Florida. Skin and blush agree between UF/IFAS and Wikipedia. Shape and beak come from Wikipedia only.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/saigon/",
+      "https://en.wikipedia.org/wiki/Saigon_(mango)"
+    ],
+    "verified": false
   },
   "SANDERSHA": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "long and slender",
+    "size": "very large, often 2 lb",
+    "skin_color": "yellow to golden yellow",
+    "blush": "sometimes scarlet blush on exposed side",
+    "beak": "prominent beak at apex",
+    "flesh_color": "orange-yellow, fiberless",
+    "notes": "Sandersha is the name under which Totapuri was brought into Florida in 1901 (Wikipedia), though Popenoe (1920) describes Sandersha and Totapari as separate varieties. The size comes from a USDA plant immigrants bulletin. The shape comes from the Wikipedia 'Anderson' page, which says Anderson's shape 'is similar to Sandersha, being long and slender'. Skin, blush, beak and flesh come from Popenoe's direct description of Sandersha: 'prominently beaked at the apex', 'yellow to golden yellow in color, sometimes blushed scarlet on exposed side', flesh 'orange-yellow' and 'free from fiber'. The 'greenish yellow fruits' on the Wikipedia Totapuri page match Popenoe's Totapari, not his Sandersha.",
+    "sources": [
+      "https://www.ars-grin.gov/npgs/pi_books/scans/immigrants/119_014.pdf",
+      "https://en.wikipedia.org/wiki/Anderson_(mango)",
+      "https://en.wikipedia.org/wiki/Totapuri",
+      "https://growables.org/information/TropicalFruit/MangoPopenoe11.htm"
+    ],
+    "verified": false
   },
   "VALENCIA PRIDE": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "long, oblong-sigmoid (S-curved), large and wide",
+    "size": "large, 600-900 g (1-2 lb)",
+    "skin_color": "yellow",
+    "blush": "pink to crimson blush covering much of the fruit",
+    "beak": "large apical beak",
+    "flesh_color": "light to deep yellow, little fiber",
+    "notes": "Florida cultivar (a Haden seedling). UF/IFAS, Fairchild and Wikipedia agree on yellow skin and a pink-crimson blush. Fairchild and Wikipedia agree on the sigmoid shape, but Fairchild calls the fruit wide while Wikipedia calls it long and slender.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/valencia-pride/",
+      "https://fairchildgarden.org/wp-content/uploads/2024/06/Fairchild-Choice-Mango-Trees-2024.pdf",
+      "https://en.wikipedia.org/wiki/Valencia_Pride"
+    ],
+    "verified": true
   },
   "YOUNG": {
-    "shape": null,
-    "size": null,
-    "skin_color": null,
-    "blush": null,
-    "beak": null,
-    "flesh_color": null,
-    "notes": null,
-    "sources": null,
-    "verified": null
+    "shape": "roundish, similar to Kent",
+    "size": "medium-large, 510-624 g (about 1 lb)",
+    "skin_color": "golden yellow",
+    "blush": "orange blush",
+    "beak": "no lateral beak",
+    "flesh_color": "pale yellow, fiberless",
+    "notes": "Florida cultivar (Edward x Kent), also sold as 'Tebow'. Skin and blush agree between UF/IFAS and Wikipedia. Shape and beak come from Wikipedia only.",
+    "sources": [
+      "https://mango.ifas.ufl.edu/research/phenology/young/",
+      "https://en.wikipedia.org/wiki/Young_(mango)"
+    ],
+    "verified": false
   }
 }

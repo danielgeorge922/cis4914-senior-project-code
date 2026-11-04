@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 from transformers import AutoImageProcessor, AutoModel
 
 ML_ROOT = Path(__file__).resolve().parents[1]
@@ -32,8 +32,9 @@ def load_samples(images_csv=CROPS_CSV):
     return samples.reset_index(drop=True)
 
 # retrieval models work by mapping by similairty so we store embedding vector descriptions of images and compare by dot ptoduct similariy
-def embed(samples, cache, batch_size=16):
+def embed(samples, cache, batch_size=16, transform=None):
     # Cached by sample_id, so reruns only embed new crops.
+    # transform replaces DINOv2's own resize/crop (e.g. mango_transfer's padding, to match the classifier).
     cached = {}
     if cache.exists():
         data = np.load(cache, allow_pickle=False)
@@ -45,9 +46,13 @@ def embed(samples, cache, batch_size=16):
         paths = samples.set_index("sample_id").transformed_path
         for start in range(0, len(missing), batch_size):
             ids = missing[start:start + batch_size]
-            images = [Image.open(ML_ROOT / paths[i]).convert("RGB") for i in ids]
             with torch.no_grad():
-                cls = model(**processor(images=images, return_tensors="pt")).pooler_output
+                if transform:
+                    images = [transform(ImageOps.exif_transpose(Image.open(ML_ROOT / paths[i])).convert("RGB")) for i in ids]
+                    cls = model(pixel_values=torch.stack(images)).pooler_output
+                else:
+                    images = [Image.open(ML_ROOT / paths[i]).convert("RGB") for i in ids]
+                    cls = model(**processor(images=images, return_tensors="pt")).pooler_output
             for i, vector in zip(ids, torch.nn.functional.normalize(cls, dim=1).numpy()):
                 cached[i] = vector
             print(f"embedded {min(start + batch_size, len(missing))}/{len(missing)}", flush=True)
@@ -81,17 +86,10 @@ def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10)):
             hits[k].append(rank < k)
             chance[k].append(min(k, len(ranked)) / len(ranked))
         best = np.where(gallery)[0][sims[q, gallery].argmax()]
-        # Each shortlisted cultivar with its best-matching photo from another tree (reference for the reranker).
-        candidates = []
-        for c in ranked[:10]:
-            allowed = np.where(gallery & (labels == c))[0]
-            match = allowed[sims[q, allowed].argmax()]
-            candidates.append({"cultivar": c, "score": round(float(scores[c]), 4),
-                               "photo": samples.transformed_path[match]})
         rows.append({"query": samples.transformed_path[q], "true": labels[q], "rank": rank + 1,
                      "top10": "; ".join(f"{c} ({scores[c]:.3f})" for c in ranked[:10]),
                      "best_match": samples.transformed_path[best], "best_match_cultivar": labels[best],
-                     "candidates": json.dumps(candidates)})
+                     "shortlist": json.dumps(ranked[:10])})
 
     predictions = pd.DataFrame(rows)
     predictions["pred"] = predictions.top10.str.split(" \\(").str[0]
@@ -143,7 +141,7 @@ def main():
 
     if args.rerank:
         from rerank_gemini import rerank
-        rerank(out_dir / "predictions.csv", out_dir / "rerank")
+        rerank(out_dir / "predictions.csv", out_dir / "rerank-traits")
     return 0
 
 

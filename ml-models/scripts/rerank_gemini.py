@@ -1,4 +1,8 @@
-"""Ask Gemini to rerank each photo's top-5 retrieval shortlist."""
+"""Ask Gemini to rerank each photo's top-5 shortlist by matching the photo to written cultivar traits.
+
+Input is any CSV with columns query (photo path), true (cultivar) and shortlist (JSON list of cultivar
+names, best first), so any model's output can be reranked.
+"""
 import argparse
 import base64
 import io
@@ -16,14 +20,15 @@ from PIL import Image
 ML_ROOT = Path(__file__).resolve().parents[1]
 PREDICTIONS = ML_ROOT / "runs/retrieval-dinov2-masked/top20/predictions.csv"
 TRAITS = ML_ROOT / "data/reference/cultivar_traits.json"
-OUT_DIR = ML_ROOT / "runs/rerank-gemini"
-MODEL = "gemini-3.5-flash-lite"
+OUT_DIR = ML_ROOT / "runs/rerank-gemini-traits"
+MODEL = "gemini-3.1-pro-preview"
 TOP_K = 5  # candidates sent to Gemini
 WORKERS = 5  # requests sent at the same time
 
-PROMPT = """The first photo is a mango of unknown cultivar. After it are 5 candidate cultivars, each shown with a
-photo of a mango of that cultivar from a different tree. Compare fruit shape, size, skin color, blush, spots and beak.
-Rank all 5 candidate names from most to least likely to match the first mango. Use the names exactly as given."""
+PROMPT = """The photo is a mango of unknown cultivar. After it are 5 candidate cultivars, each with its known
+traits where available. Compare the photo's fruit shape, size, skin color, blush, spots and beak against each
+candidate's traits. Rank all 5 candidate names from most to least likely to match the mango. Use the names exactly
+as given."""
 
 SCHEMA = {"type": "object", "properties": {"ranking": {"type": "array", "items": {"type": "string"}}},
           "required": ["ranking"]}
@@ -38,14 +43,14 @@ def image_part(path):
 
 
 def ask_gemini(client, row, traits):
-    candidates = json.loads(row.candidates)[:TOP_K]
+    names = json.loads(row.shortlist)[:TOP_K]
     parts = [{"type": "text", "text": PROMPT}, image_part(row.query)]
-    for i, candidate in enumerate(candidates, 1):
-        text = f"Candidate {i}: {candidate['cultivar']}"
-        known = {k: v for k, v in traits.get(candidate["cultivar"], {}).items() if v is not None}
+    for i, name in enumerate(names, 1):
+        text = f"Candidate {i}: {name}"
+        known = {k: v for k, v in traits.get(name, {}).items() if v is not None and k != "sources"}
         if known:
             text += f". Known traits: {json.dumps(known)}"
-        parts += [{"type": "text", "text": text}, image_part(candidate["photo"])]
+        parts.append({"type": "text", "text": text})
 
     # Gemini sometimes answers "busy" (503) or "slow down" (429); wait and try again.
     for attempt in range(1, 6):
@@ -61,8 +66,7 @@ def ask_gemini(client, row, traits):
             print(f"Gemini busy, retrying in {30 * attempt}s", flush=True)
             time.sleep(30 * attempt)
     ranking = json.loads(response.output_text)["ranking"]
-    # Keep Gemini's order for valid names, then add any it left out in retrieval order.
-    names = [c["cultivar"] for c in candidates]
+    # Keep Gemini's order for valid names, then add any it left out in shortlist order.
     ranking = [n for n in dict.fromkeys(ranking) if n in names]
     return ranking + [n for n in names if n not in ranking]
 
@@ -96,7 +100,7 @@ def rerank(predictions_path=PREDICTIONS, out_dir=OUT_DIR, limit=None):
 
     results = []
     for row in rows.itertuples():
-        before = [c["cultivar"] for c in json.loads(row.candidates)][:TOP_K]
+        before = json.loads(row.shortlist)[:TOP_K]
         after = answers[row.query]
         results.append({"retrieval_top1": before[0] == row.true, "rerank_top1": after[0] == row.true,
                         "retrieval_top3": row.true in before[:3], "rerank_top3": row.true in after[:3],
@@ -111,9 +115,11 @@ def rerank(predictions_path=PREDICTIONS, out_dir=OUT_DIR, limit=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input", type=Path, default=PREDICTIONS, help="CSV with query, true, shortlist columns.")
+    parser.add_argument("--out", type=Path, default=OUT_DIR, help="Folder for answers.jsonl and metrics.json.")
     parser.add_argument("--limit", type=int, help="Only rerank the first N photos.")
     args = parser.parse_args()
-    rerank(limit=args.limit)
+    rerank(args.input, args.out, args.limit)
     return 0
 
 
