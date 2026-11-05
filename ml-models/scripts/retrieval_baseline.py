@@ -26,9 +26,9 @@ def safe_output(path):
     return path
 
 
-def load_samples(images_csv=CROPS_CSV):
+def load_samples(images_csv=CROPS_CSV, manifest=MANIFEST):
     crops = pd.read_csv(images_csv)
-    samples = pd.read_csv(MANIFEST).merge(crops[crops.status.eq("ok")], on="sample_id")
+    samples = pd.read_csv(manifest).merge(crops[crops.status.eq("ok")], on="sample_id")
     return samples.reset_index(drop=True)
 
 # retrieval models work by mapping by similairty so we store embedding vector descriptions of images and compare by dot ptoduct similariy
@@ -56,8 +56,11 @@ def embed(samples, cache, batch_size=16, transform=None):
             for i, vector in zip(ids, torch.nn.functional.normalize(cls, dim=1).numpy()):
                 cached[i] = vector
             print(f"embedded {min(start + batch_size, len(missing))}/{len(missing)}", flush=True)
-        safe_output(cache).parent.mkdir(parents=True, exist_ok=True)
-        np.savez(safe_output(cache), sample_id=np.array(list(cached)), embedding=np.stack(list(cached.values())))
+            # Save every 100 batches too, so a stopped run resumes instead of starting over.
+            if (start // batch_size) % 100 == 99 or start + batch_size >= len(missing):
+                safe_output(cache).parent.mkdir(parents=True, exist_ok=True)
+                np.savez(safe_output(cache), sample_id=np.array(list(cached)),
+                         embedding=np.stack(list(cached.values())))
     return np.stack([cached[s] for s in samples.sample_id])
 
 
@@ -67,17 +70,22 @@ def top_classes(samples, n):
     return stats.sort_values(["specimens", "photos"], ascending=False).head(n)
 
 
-def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10)):
+def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10), query_split="val"):
     labels = samples.cultivar.to_numpy()
     specimens = samples.specimen.to_numpy()
     classes = np.unique(labels)
-    sims = embeddings @ embeddings.T
+    # With a fixed split (split_v1), val or test photos are matched only against train photos.
+    fixed_split = "split" in samples
+    queries = np.flatnonzero(samples.split.eq(query_split)) if fixed_split else np.arange(len(samples))
+    train = samples.split.eq("train").to_numpy() if fixed_split else None
+    # One row per query only, so a big gallery doesn't need an all-by-all matrix.
+    sims = embeddings[queries] @ embeddings.T
 
     rows, hits, chance = [], {k: [] for k in ks}, {k: [] for k in ks}
-    for q in range(len(samples)):
-        gallery = specimens != specimens[q]
+    for row, q in enumerate(queries):
+        gallery = train if fixed_split else specimens != specimens[q]
         # Each cultivar's score is its single best match among photos from other specimens.
-        scores = {c: sims[q, gallery & (labels == c)].max() for c in classes if (gallery & (labels == c)).any()}
+        scores = {c: sims[row, gallery & (labels == c)].max() for c in classes if (gallery & (labels == c)).any()}
         if labels[q] not in scores:
             continue  # cultivar has no other specimen: not testable
         ranked = sorted(scores, key=scores.get, reverse=True)
@@ -85,7 +93,7 @@ def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10)):
         for k in ks:
             hits[k].append(rank < k)
             chance[k].append(min(k, len(ranked)) / len(ranked))
-        best = np.where(gallery)[0][sims[q, gallery].argmax()]
+        best = np.where(gallery)[0][sims[row, gallery].argmax()]
         rows.append({"query": samples.transformed_path[q], "true": labels[q], "rank": rank + 1,
                      "top10": "; ".join(f"{c} ({scores[c]:.3f})" for c in ranked[:10]),
                      "best_match": samples.transformed_path[best], "best_match_cultivar": labels[best],
@@ -97,8 +105,10 @@ def evaluate(samples, embeddings, out_dir, ks=(1, 5, 10)):
     confused = Counter(zip(predictions.true, predictions.pred))
     confused = [{"true": t, "predicted": p, "count": n} for (t, p), n in confused.most_common() if t != p][:20]
     metrics = {
+        "model": "frozen DINOv2, originals only, no augmentation",
+        "query_split": query_split if fixed_split else "leave-one-specimen-out",
         "queries_evaluated": len(predictions),
-        "queries_skipped": len(samples) - len(predictions),
+        "queries_skipped": len(queries) - len(predictions),
         "cultivars_testable": int(predictions.true.nunique()),
         "cultivars_in_gallery": int(len(classes)),
         **{f"top{k}": round(float(np.mean(hits[k])), 4) for k in ks},
@@ -118,13 +128,22 @@ def main():
     parser.add_argument("--top-classes", type=int, help="Restrict queries and gallery to the N most-specimen cultivars.")
     parser.add_argument("--masked", action="store_true", help="Use background-masked crops (scripts/mask_background.py).")
     parser.add_argument("--rerank", action="store_true", help="Then rerank each top-10 with Gemini (scripts/rerank_gemini.py).")
+    parser.add_argument("--manifest", type=Path, default=MANIFEST, help="training.csv, with crops.csv next to it.")
+    parser.add_argument("--view", default="exterior", help="exterior, interior or leaf.")
+    parser.add_argument("--query-split", default="val", help="val while choosing models; test once at the end.")
     args = parser.parse_args()
 
     run_dir = RUN_DIR.with_name(RUN_DIR.name + "-masked") if args.masked else RUN_DIR
-    samples = load_samples(MASKS_CSV if args.masked else CROPS_CSV)
-    samples = samples[samples.view.eq("exterior")].reset_index(drop=True)
+    if args.manifest != MANIFEST:
+        run_dir = RUN_DIR.with_name(f"{RUN_DIR.name}-{args.manifest.parent.name}-{args.view}")
+    samples = load_samples(MASKS_CSV if args.masked else args.manifest.parent / "crops.csv", args.manifest)
+    samples = samples[samples.view.eq(args.view)]
+    if "augmented" in samples:
+        # Augmented copies are for training the classifier; the retrieval gallery uses originals only.
+        samples = samples[~samples.augmented]
+    samples = samples.reset_index(drop=True)
     embeddings = embed(samples, run_dir / "embeddings.npz")
-    out_dir = run_dir
+    out_dir = run_dir / args.query_split if "split" in samples else run_dir
     if args.top_classes:
         chosen = top_classes(samples, args.top_classes)
         print(f"{args.top_classes}-way subset (cultivar: specimens, photos):")
@@ -133,7 +152,7 @@ def main():
         samples, embeddings = samples[keep].reset_index(drop=True), embeddings[keep]
         out_dir = run_dir / f"top{args.top_classes}"
 
-    metrics = evaluate(samples, embeddings, out_dir)
+    metrics = evaluate(samples, embeddings, out_dir, query_split=args.query_split)
     print(json.dumps({k: v for k, v in metrics.items() if k != "most_confused"}, indent=2))
     print("Most confused (true -> predicted, count):")
     for pair in metrics["most_confused"][:10]:

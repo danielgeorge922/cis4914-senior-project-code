@@ -190,6 +190,25 @@ def prepare_experiments(manifest_path, ml_root, seed=4914):
     return experiments
 
 
+def prepare_split_v1(manifest_csv, ml_root, view, seed=4914):
+    """One experiment from the split_v1 manifest: train = originals + augmented copies, val/test = originals."""
+    frame = pd.read_csv(manifest_csv)
+    frame = frame[frame.view.eq(view) & (frame.split.eq("train") | ~frame.augmented)].copy()
+    frame["split"] = frame.split.replace({"val": "validation"})
+    names = sorted(frame.cultivar.unique())
+    class_map = {name: i for i, name in enumerate(names)}
+    frame = frame.assign(class_name=frame.cultivar, class_id=frame.cultivar.map(class_map).astype("int64"),
+                         image_path=frame.raw_path.map(lambda p: str(Path(ml_root) / p)),
+                         source_sha256=frame.sha256, annotation_code=pd.NA,
+                         split_group=frame.specimen, duplicate_group=frame.specimen)
+    frame = frame.sort_values("raw_path").reset_index(drop=True)
+    splits = {name: frame[frame.split.eq(name)].reset_index(drop=True) for name in SPLITS}
+    # The manifest already has 12 saved augmented copies per train photo, so no random changes on top.
+    return {"frame": frame, "splits": splits, "class_names": names, "class_to_id": class_map,
+            "policy": "split_v1 (docs/adr/0001-split-v1-evaluation.md)", "seed": seed,
+            "online_augmentation": False}
+
+
 def experiment_tables(experiments):
     summaries, split_rows, overlap_rows = [], [], []
     for key, exp in experiments.items():
@@ -243,7 +262,7 @@ class MangoDataset(Dataset):
         return self.transform(image), int(row.class_id)
 
 
-def make_loader(exp, split, batch_size=16, seed=4914):
+def make_loader(exp, split, batch_size=16, seed=4914, num_workers=0):
     frame = exp["splits"][split]
     sampler = None
     if split == "train":
@@ -251,8 +270,9 @@ def make_loader(exp, split, batch_size=16, seed=4914):
         weights = frame.class_id.map(1 / counts).to_numpy(copy=True)
         sampler = WeightedRandomSampler(torch.as_tensor(weights, dtype=torch.double),
             len(frame), replacement=True, generator=torch.Generator().manual_seed(seed))
-    return DataLoader(MangoDataset(frame, split == "train"), batch_size=batch_size,
-                      sampler=sampler, shuffle=False, num_workers=0,
+    training = split == "train" and exp.get("online_augmentation", True)
+    return DataLoader(MangoDataset(frame, training), batch_size=batch_size,
+                      sampler=sampler, shuffle=False, num_workers=num_workers,
                       generator=torch.Generator().manual_seed(seed))
 
 
@@ -344,7 +364,7 @@ def choose_device():
 
 
 def fit_experiment(exp, architecture, dropout=0.35, epochs=10, patience=3,
-                   learning_rate=1e-3, batch_size=16, device=None, seed=4914):
+                   learning_rate=1e-3, batch_size=16, device=None, seed=4914, num_workers=0):
     """Train on full training split; select checkpoint with validation only."""
     if epochs < 1 or patience < 1:
         raise ValueError("epochs and patience must be positive.")
@@ -354,8 +374,8 @@ def fit_experiment(exp, architecture, dropout=0.35, epochs=10, patience=3,
     torch.manual_seed(seed)
     model = create_model(architecture, len(exp["class_names"]), dropout).to(device)
     optimizer = torch.optim.AdamW(model.head.parameters(), lr=learning_rate, weight_decay=0.01)
-    train_loader = make_loader(exp, "train", batch_size, seed)
-    val_loader = make_loader(exp, "validation", batch_size, seed)
+    train_loader = make_loader(exp, "train", batch_size, seed, num_workers)
+    val_loader = make_loader(exp, "validation", batch_size, seed, num_workers)
     best_loss, best_head, stale, history, best_epoch = float("inf"), None, 0, [], None
     for epoch in range(1, epochs + 1):
         model.train()
@@ -412,7 +432,8 @@ def save_run(result, exp, experiment_key, output_root, manifest_path):
                 "architecture": result["architecture"], "weights": "IMAGENET1K_V1",
                 "dropout": result["dropout"], "best_epoch": result["best_epoch"],
                 "class_names": exp["class_names"], "config": result["config"],
-                "preprocessing": PREPROCESSING, "torch_version": str(torch.__version__),
+                "preprocessing": PREPROCESSING, "online_augmentation": exp.get("online_augmentation", True),
+                "torch_version": str(torch.__version__),
                 "manifest_sha256": hashlib.sha256(Path(manifest_path).read_bytes()).hexdigest(),
                 "history": result["history"], "validation": result["validation"],
                 "split_rows": json.loads(exp["frame"][columns].to_json(orient="records"))}
