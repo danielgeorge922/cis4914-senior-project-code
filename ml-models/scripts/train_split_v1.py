@@ -1,18 +1,7 @@
 """Train classifiers on the split_v1 manifest for one view, then write and score each run's validation shortlist.
 
 Uses the GPU when there is one. Test is left alone until the final comparison.
-
-On Colab (Runtime > Change runtime type > GPU):
-    1. Locally, zip split_full/ and ml-models/data/manifests/split_v1/ and upload both zips to Google Drive.
-    2. In a Colab cell:
-        from google.colab import drive; drive.mount("/content/drive")
-        !git clone -b demo/COIL https://github.com/danielgeorge922/cis4914-senior-project-code.git /content/repo
-        !unzip -q /content/drive/MyDrive/split_full.zip -d /content/repo
-        !unzip -q /content/drive/MyDrive/split_v1.zip -d /content/repo/ml-models/data/manifests
-        %cd /content/repo/ml-models
-        !python scripts/train_split_v1.py --view exterior
-        !python scripts/train_split_v1.py --view leaf
-    3. Copy runs/split_v1/ back to Drive before the session ends.
+On Colab, open notebooks/train_colab.ipynb and Run all.
 """
 import argparse
 import json
@@ -45,9 +34,9 @@ def main():
     for architecture in args.architectures:
         result = fit_experiment(exp, architecture, epochs=args.epochs, batch_size=args.batch_size,
                                 num_workers=args.num_workers)
-        model = result.pop("model")
-        size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / 1e6
+        size_mb = sum(p.numel() * p.element_size() for p in result["model"].parameters()) / 1e6
         run_dir = save_run(result, exp, f"split_v1_{args.view}", RUNS, args.manifest)
+        del result["model"]
 
         started = time.perf_counter()
         shortlist = write_shortlist(run_dir, run_dir / "val_shortlist.csv", split="validation",

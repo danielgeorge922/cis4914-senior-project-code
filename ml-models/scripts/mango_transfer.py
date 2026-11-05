@@ -13,7 +13,7 @@ import pandas as pd
 import torch
 from PIL import Image, ImageOps
 from torch import nn
-from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
+from torch.utils.data import DataLoader, Dataset, TensorDataset, WeightedRandomSampler
 from torchvision import models, transforms
 from torchvision.transforms import InterpolationMode
 
@@ -262,14 +262,30 @@ class MangoDataset(Dataset):
         return self.transform(image), int(row.class_id)
 
 
+def balanced_sampler(frame, seed):
+    counts = frame.class_id.value_counts()
+    weights = frame.class_id.map(1 / counts).to_numpy(copy=True)
+    return WeightedRandomSampler(torch.as_tensor(weights, dtype=torch.double),
+        len(frame), replacement=True, generator=torch.Generator().manual_seed(seed))
+
+
+def feature_loader(model, exp, split, batch_size, seed, num_workers, device):
+    """Run every photo through the frozen backbone once and serve the saved features instead of photos."""
+    frame = exp["splits"][split]
+    photos = DataLoader(MangoDataset(frame), batch_size=batch_size, num_workers=num_workers)
+    features = []
+    # Half precision on a GPU is about twice as fast; the frozen backbone's output barely changes.
+    with torch.no_grad(), torch.autocast(device.type, enabled=device.type == "cuda"):
+        for images, _ in photos:
+            features.append(model.backbone(images.to(device)).float().cpu())
+    data = TensorDataset(torch.cat(features), torch.as_tensor(frame.class_id.to_numpy(copy=True)))
+    sampler = balanced_sampler(frame, seed) if split == "train" else None
+    return DataLoader(data, batch_size=batch_size, sampler=sampler)
+
+
 def make_loader(exp, split, batch_size=16, seed=4914, num_workers=0):
     frame = exp["splits"][split]
-    sampler = None
-    if split == "train":
-        counts = frame.class_id.value_counts()
-        weights = frame.class_id.map(1 / counts).to_numpy(copy=True)
-        sampler = WeightedRandomSampler(torch.as_tensor(weights, dtype=torch.double),
-            len(frame), replacement=True, generator=torch.Generator().manual_seed(seed))
+    sampler = balanced_sampler(frame, seed) if split == "train" else None
     training = split == "train" and exp.get("online_augmentation", True)
     return DataLoader(MangoDataset(frame, training), batch_size=batch_size,
                       sampler=sampler, shuffle=False, num_workers=num_workers,
@@ -374,8 +390,15 @@ def fit_experiment(exp, architecture, dropout=0.35, epochs=10, patience=3,
     torch.manual_seed(seed)
     model = create_model(architecture, len(exp["class_names"]), dropout).to(device)
     optimizer = torch.optim.AdamW(model.head.parameters(), lr=learning_rate, weight_decay=0.01)
-    train_loader = make_loader(exp, "train", batch_size, seed, num_workers)
-    val_loader = make_loader(exp, "validation", batch_size, seed, num_workers)
+    if exp.get("online_augmentation", True):
+        net = model
+        train_loader = make_loader(exp, "train", batch_size, seed, num_workers)
+        val_loader = make_loader(exp, "validation", batch_size, seed, num_workers)
+    else:
+        # No random changes, so each photo's backbone features are the same every epoch: compute them once.
+        net = model.head
+        train_loader = feature_loader(model, exp, "train", batch_size, seed, num_workers, device)
+        val_loader = feature_loader(model, exp, "validation", batch_size, seed, num_workers, device)
     best_loss, best_head, stale, history, best_epoch = float("inf"), None, 0, [], None
     for epoch in range(1, epochs + 1):
         model.train()
@@ -383,14 +406,14 @@ def fit_experiment(exp, architecture, dropout=0.35, epochs=10, patience=3,
         for images, labels in train_loader:
             images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad(set_to_none=True)
-            logits = model(images)
+            logits = net(images)
             loss = nn.functional.cross_entropy(logits, labels)
             loss.backward()
             optimizer.step()
             total_loss += loss.item() * len(labels)
             total_correct += logits.argmax(1).eq(labels).sum().item()
             seen += len(labels)
-        validation, _, _ = evaluate_loader(model, val_loader, exp["class_names"], device)
+        validation, _, _ = evaluate_loader(net, val_loader, exp["class_names"], device)
         history.append({"epoch": epoch, "train_loss": total_loss / seen,
                         "train_accuracy": total_correct / seen,
                         **{f"val_{key}": value for key, value in validation.items()}})
@@ -408,7 +431,7 @@ def fit_experiment(exp, architecture, dropout=0.35, epochs=10, patience=3,
         raise ValueError("No finite validation checkpoint was produced; check training settings.")
     model.head.load_state_dict(best_head)
     model.eval()
-    validation, _, _ = evaluate_loader(model, val_loader, exp["class_names"], device)
+    validation, _, _ = evaluate_loader(net, val_loader, exp["class_names"], device)
     return {"model": model, "architecture": architecture, "dropout": dropout,
             "history": history, "best_epoch": best_epoch, "validation": validation,
             "config": {"epochs": epochs, "patience": patience, "learning_rate": learning_rate,
